@@ -16,6 +16,9 @@
 bin/
 gen/
 out/
+generated/
+docs/
+finalOutput/
 
 # Gradle files
 .gradle/
@@ -38,11 +41,19 @@ captures/
 
 # Intellij
 *.iml
-.idea/workspace.xml
-.idea/libraries
+*.ipr
+*.iws
+.idea/
+
+.directory
 
 # Keystore files
 *.jks
 
+# maven
+target/
+
 ### Android Patch ###
 gen-external-apklibs
+
+.DS_Store
