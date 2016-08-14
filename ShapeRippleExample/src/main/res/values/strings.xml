@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Shape Ripple</string>
+    <string name="default_ripple_idle">Hello</string>
+    <string name="default_ripple_error">Error</string>
+
+    <string name="ripple_circle">Circle Ripple</string>
+    <string name="ripple_square">Square Ripple</string>
+    <string name="ripple_triangle">Triangle Ripple</string>
+    <string name="ripple_star">Star Ripple</string>
+    <string name="ripples">Ripples</string>
+
+</resources>

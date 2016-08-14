@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Shapes">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_circle"
+                    android:icon="@drawable/circle"
+                    android:title="Circle" />
+                <item
+                    android:id="@+id/nav_square"
+                    android:icon="@drawable/square"
+                    android:title="Square" />
+                <item
+                    android:id="@+id/nav_triangle"
+                    android:icon="@drawable/triangle"
+                    android:title="Triangle" />
+                <item
+                    android:id="@+id/nav_star"
+                    android:icon="@drawable/star"
+                    android:title="Star" />
+            </group>
+        </menu>
+    </item>
+
+
+    <item android:title="Source">
+        <menu>
+            <item android:title="GitHub" />
+            <item android:title="About" />
+        </menu>
+    </item>
+</menu>

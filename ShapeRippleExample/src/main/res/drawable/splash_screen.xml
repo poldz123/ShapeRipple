@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@color/white"/>
+
+    <item>
+        <bitmap android:src="@drawable/circle_ripple" android:gravity="center"/>
+    </item>
+
+
+    <item android:bottom="@dimen/shape_ripple_text_margin_bottom">
+        <bitmap android:src="@drawable/shape_ripple_text" android:gravity="center_horizontal|bottom"
+             />
+    </item>
+
+</layer-list>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ConnectingRipple">
+        <attr name="ripple_color" format="color" />
+        <attr name="enable_single_ripple" format="boolean" />
+        <attr name="ripple_duration" format="integer" />
+        <attr name="enable_color_transition" format="boolean" />
+        <attr name="enable_random_position" format="boolean" />
+        <attr name="enable_random_color" format="boolean" />
+        <attr name="ripple_from_color" format="color" />
+        <attr name="ripple_to_color" format="color" />
+        <attr name="ripple_stroke_width" format="dimension" />
+    </declare-styleable>
+</resources>
