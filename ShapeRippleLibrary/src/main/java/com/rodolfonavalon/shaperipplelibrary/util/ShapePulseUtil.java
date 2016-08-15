@@ -17,9 +17,7 @@
 package com.rodolfonavalon.shaperipplelibrary.util;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
-
-import com.rodolfonavalon.shaperipplelibrary.R;
+import android.graphics.Color;
 
 import java.util.ArrayList;
 
@@ -28,10 +26,17 @@ public class ShapePulseUtil {
     /**
      * The default color for random colors
      */
-    private static final int[] DEFAULT_RANDOM_COLOUR_SEQUENCE = {R.color.primary_deep_purple,
-    R.color.primary_indigo, R.color.primary_blue, R.color.primary_light_blue, R.color.primary_cyan,
-    R.color.primary_teal, R.color.primary_light_green, R.color.primary_green, R.color.primary_deep_orange,
-    R.color.primary_red};
+    private static final int[] DEFAULT_RANDOM_COLOUR_SEQUENCE = {
+            Color.parseColor("#673AB7"),
+            Color.parseColor("#3F51B5"),
+            Color.parseColor("#2196F3"),
+            Color.parseColor("#03A9F4"),
+            Color.parseColor("#00BCD4"),
+            Color.parseColor("#009688"),
+            Color.parseColor("#8BC34A"),
+            Color.parseColor("#4CAF50"),
+            Color.parseColor("#FF5722"),
+            Color.parseColor("#F44336")};
 
     /**
      * Calculate the current color by the current fraction value.
@@ -69,8 +74,8 @@ public class ShapePulseUtil {
     public static ArrayList<Integer> generateRandomColours(Context context) {
         ArrayList<Integer> randomColours = new ArrayList<>();
 
-        for (Integer colorId : DEFAULT_RANDOM_COLOUR_SEQUENCE) {
-            randomColours.add(ContextCompat.getColor(context, colorId));
+        for (Integer color : DEFAULT_RANDOM_COLOUR_SEQUENCE) {
+            randomColours.add(color);
         }
 
         return randomColours;

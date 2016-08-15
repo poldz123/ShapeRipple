@@ -21,7 +21,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.support.v4.content.ContextCompat;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Interpolator;
@@ -199,9 +199,9 @@ public class ShapeRipple extends View {
 
         rippleShape = new Circle();
 
-        rippleColor = ContextCompat.getColor(context, R.color.default_ripple);
-        rippleFromColor = ContextCompat.getColor(context, R.color.default_ripple);
-        rippleToColor = ContextCompat.getColor(context, R.color.default_ripple_to);
+        rippleColor = Color.parseColor("#FFF44336");
+        rippleFromColor = Color.parseColor("#FFF44336");
+        rippleToColor = Color.parseColor("#00FFFFFF");
         rippleStrokeWidth = getResources().getDimensionPixelSize(R.dimen.default_stroke_width);
         rippleRandomColors = ShapePulseUtil.generateRandomColours(getContext());
         rippleDuration = DEFAULT_RIPPLE_DURATION;
@@ -213,9 +213,9 @@ public class ShapeRipple extends View {
             TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ConnectingRipple, 0, 0);
 
             try {
-                rippleColor = ta.getColor(R.styleable.ConnectingRipple_ripple_color, ContextCompat.getColor(context, R.color.default_ripple));
-                rippleFromColor = ta.getColor(R.styleable.ConnectingRipple_ripple_from_color, ContextCompat.getColor(context, R.color.default_ripple));
-                rippleToColor = ta.getColor(R.styleable.ConnectingRipple_ripple_to_color, ContextCompat.getColor(context, R.color.default_ripple_to));
+                rippleColor = ta.getColor(R.styleable.ConnectingRipple_ripple_color, Color.parseColor("#FFF44336"));
+                rippleFromColor = ta.getColor(R.styleable.ConnectingRipple_ripple_from_color, Color.parseColor("#FFF44336"));
+                rippleToColor = ta.getColor(R.styleable.ConnectingRipple_ripple_to_color, Color.parseColor("#00FFFFFF"));
                 setRippleDuration(ta.getInteger(R.styleable.ConnectingRipple_ripple_duration, DEFAULT_RIPPLE_DURATION));
                 enableColorTransition = ta.getBoolean(R.styleable.ConnectingRipple_enable_color_transition, true);
                 enableSingleRipple = ta.getBoolean(R.styleable.ConnectingRipple_enable_single_ripple, false);
@@ -598,7 +598,7 @@ public class ShapeRipple extends View {
     /**
      * Change the ripple interval for each ripple.
      *
-     * Value must be <= 2f && > 0f in range.
+     * Value must be between 0f - 2f.
      *
      * @param rippleInterval The floating ripple interval for each ripple
      */
