@@ -26,8 +26,10 @@
 
     <item android:title="Source">
         <menu>
-            <item android:title="GitHub" />
-            <item android:title="About" />
+            <item android:title="GitHub"
+                android:id="@+id/nav_github"/>
+            <item android:title="About"
+                android:id="@+id/nav_about"/>
         </menu>
     </item>
 </menu>

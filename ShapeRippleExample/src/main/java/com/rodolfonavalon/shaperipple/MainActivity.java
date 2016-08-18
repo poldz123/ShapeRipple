@@ -1,18 +1,23 @@
 package com.rodolfonavalon.shaperipple;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.rodolfonavalon.shaperipplelibrary.ShapeRipple;
 import com.rodolfonavalon.shaperipplelibrary.model.Circle;
@@ -111,6 +116,26 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                         break;
                     case R.id.nav_star:
                         ripple.setRippleShape(new Star());
+                        break;
+                    case R.id.nav_github:
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/poldz123/ShapeRipple"));
+                        startActivity(browserIntent);
+                        break;
+                    case R.id.nav_about:
+
+                        View layout = LayoutInflater.from(MainActivity.this).inflate(R.layout.about_dialog, null, false);
+                        TextView version = (TextView) layout.findViewById(R.id.version);
+
+                        version.setText(String.format("Version %s", MainActivity.this.getString(R.string.version)));
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setPositiveButton("Ok", null);
+                        builder.setView(layout);
+
+                        final AlertDialog dialog = builder.create();
+                        dialog.setCanceledOnTouchOutside(true);
+                        dialog.setCancelable(true);
+                        dialog.show();
+
                         break;
 
                 }
