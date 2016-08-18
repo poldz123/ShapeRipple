@@ -1,4 +1,12 @@
-Demo
+[![Release](https://img.shields.io/github/release/poldz123/ShapeRipple.svg?label=mavencentral)](https://bintray.com/poldz123/maven/ShapeRipple/0.1.0#files/com/rodolfonavalon/ShapeRippleLibrary/0.1.0)     [![API](https://img.shields.io/badge/API-11%2B-green.svg?style=flat)](https://android-arsenal.com/api?level=11)
+[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/poldz123/ShapeRipple/master/LICENSE)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/poldz123/ShapeRipple.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
+
+[**Shape Ripple**](https://github.com/poldz123/ShapeRipple) is a library that emulates a ripple like animations with cool tweaks
+on the go. It runs on [API level 11](https://android-arsenal.com/api?level=11) and upwards.
+
+As addition you can even create your own shape renderer through the canvas to create a custom shape ripple.
+
 ======
 For a brief overview of the library you can download the app in **Google PlayStore** [**Shape Ripple apk**](https://play.google.com/store/apps/details?id=com.rodolfonavalon.shaperipple) and try it out. The apk code for this demo app is located in the **ShapeRippleExample folder**
 
