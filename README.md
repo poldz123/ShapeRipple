@@ -7,6 +7,7 @@ on the go. It runs on [API level 11](https://android-arsenal.com/api?level=11) a
 
 As addition you can even create your own shape renderer through the canvas to create a custom shape ripple.
 
+Demo
 ======
 For a brief overview of the library you can download the app in **Google PlayStore** [**Shape Ripple apk**](https://play.google.com/store/apps/details?id=com.rodolfonavalon.shaperipple) and try it out. The apk code for this demo app is located in the **ShapeRippleExample folder**
 
