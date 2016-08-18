@@ -67,7 +67,12 @@ dependencies {
 }
 ```
 
-**3. Clone whole repository**
+**3. arr file only**
+ - Down the [**latest arr file**](https://github.com/poldz123/ShapeRipple/releases) from the release section
+ - Copy the latest arr file to your `libs` folder of your Android Application
+ - Start using the library
+
+**4. Clone whole repository**
  - Open your **commandline-input** and navigate to the desired destination folder on your machine (where you want to place the library)
  - Use the command `https://github.com/poldz123/ShapeRipple.git` to download the full ShapeRipple repository to your computer (this includes the folder of the library as well as the folder of the example project)
  - Import the library folder (`ShapeRippleLibrary`) into Android Studio (recommended) or your Eclipse workspace
