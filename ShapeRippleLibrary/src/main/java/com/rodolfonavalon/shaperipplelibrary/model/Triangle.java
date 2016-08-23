@@ -29,6 +29,8 @@ public class Triangle extends BaseShapeRipple {
     @Override
     public void draw(Canvas canvas, int x, int y, float currentRadiusSize, int currentColor, int rippleIndex) {
 
+        //TODO: need to improve performance due to drawing to canvas
+
         int mY = (y - (int)currentRadiusSize);
         int rX = (x - (int)currentRadiusSize);
         int lX = (x + (int)currentRadiusSize);

@@ -29,6 +29,8 @@ public class Star extends BaseShapeRipple {
     @Override
     public void draw(Canvas canvas, int x, int y, float currentRadiusSize, int currentColor, int rippleIndex) {
 
+        //TODO: need to improve performance due to drawing to canvas
+
         float middleHorizontal = x;
         float middleVertical = y;
         float min = 0.0f;

@@ -250,8 +250,9 @@ public class ShapeRipple extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        viewWidth = getWidth();
-        viewHeight = getHeight();
+        // Get the measure base of the measure spec
+        viewWidth = MeasureSpec.getSize(widthMeasureSpec);
+        viewHeight = MeasureSpec.getSize(heightMeasureSpec);
 
         // the ripple radius based on the x or y
         maxRippleRadius = (Math.min(viewWidth, viewHeight) / 2 - (rippleStrokeWidth / 2));
