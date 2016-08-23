@@ -54,7 +54,7 @@ You can select which options you want to use:
 
 ```gradle
 dependencies {
-    compile 'com.rodolfonavalon:ShapeRippleLibrary:0.1.0'
+    compile 'com.rodolfonavalon:ShapeRippleLibrary:0.2.0'
 }
 ```
 
@@ -72,7 +72,7 @@ repositories {
 ...
 
 dependencies {
-    compile 'com.rodolfonavalon:ShapeRippleLibrary:0.1.0'
+    compile 'com.rodolfonavalon:ShapeRippleLibrary:0.2.0'
 }
 ```
 
