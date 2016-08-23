@@ -9,7 +9,7 @@
     <string name="ripple_star">Star Ripple</string>
     <string name="ripples">Ripples</string>
 
-    <string name="version">0.1.0</string>
+    <string name="version">0.2.0</string>
 
     <string name="about_description">It is a library that renders an awesome ripple effect with an ability to customize the shapes.
         \n\nIt can do a lot of things such as random colors, random position, enable single ripple and more to come in the future.</string>
