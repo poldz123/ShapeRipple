@@ -10,7 +10,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.rodolfonavalon.shaperipple.MainActivity">
 
-    <com.rodolfonavalon.shaperipple.ShapeRipple
+    <com.rodolfonavalon.shaperipplelibrary.ShapeRipple
         android:id="@+id/ripple"
         android:layout_width="0dp"
         android:layout_height="match_parent"
