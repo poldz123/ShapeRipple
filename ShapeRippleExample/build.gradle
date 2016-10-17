@@ -8,8 +8,8 @@ android {
         applicationId "com.rodolfonavalon.shaperipple"
         minSdkVersion 11
         targetSdkVersion 24
-        versionCode 3
-        versionName "0.2.0"
+        versionCode 4
+        versionName "0.3.0"
     }
     buildTypes {
         release {
@@ -25,4 +25,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.android.support:design:24.2.0'
     compile 'org.adw.library:discrete-seekbar:1.0.1'
+
+    compile 'com.rodolfonavalon:ShapeRippleLibrary:0.3.0'
 }
