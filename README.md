@@ -12,6 +12,7 @@ Demo
 For a brief overview of the library you can download the app in **Google PlayStore** [**Shape Ripple apk**](https://play.google.com/store/apps/details?id=com.rodolfonavalon.shaperipple) and try it out. The apk code for this demo app is located in the **ShapeRippleExample folder**
 
 ![alt tag](https://media.giphy.com/media/14jherDI1K2Yww/giphy.gif)
+![alt tag](https://media.giphy.com/media/tdj2rJ9OHJpfO/giphy.gif)
 
 Features
 =======
@@ -19,7 +20,7 @@ Features
 - Ripple effect
 - Random ripple colors
 - Random ripple position
-- Loaded with 4 different shapes
+- Loaded with 5 different shapes
 - Create customizable shapes
 - Modify duration and interval of ripples
 
@@ -54,7 +55,7 @@ You can select which options you want to use:
 
 ```gradle
 dependencies {
-    compile 'com.rodolfonavalon:ShapeRippleLibrary:0.2.0'
+    compile 'com.rodolfonavalon:ShapeRippleLibrary:0.3.0'
 }
 ```
 
@@ -72,7 +73,7 @@ repositories {
 ...
 
 dependencies {
-    compile 'com.rodolfonavalon:ShapeRippleLibrary:0.2.0'
+    compile 'com.rodolfonavalon:ShapeRippleLibrary:0.3.0'
 }
 ```
 
