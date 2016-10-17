@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.rodolfonavalon.shaperipplelibrary.ShapeRipple;
 import com.rodolfonavalon.shaperipplelibrary.model.Circle;
+import com.rodolfonavalon.shaperipplelibrary.model.Image;
 import com.rodolfonavalon.shaperipplelibrary.model.Square;
 import com.rodolfonavalon.shaperipplelibrary.model.Star;
 import com.rodolfonavalon.shaperipplelibrary.model.Triangle;
@@ -116,6 +117,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                         break;
                     case R.id.nav_star:
                         ripple.setRippleShape(new Star());
+                        break;
+                    case R.id.nav_image:
+                        ripple.setRippleShape(new Image(MainActivity.this, R.drawable.dodge));
                         break;
                     case R.id.nav_github:
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/poldz123/ShapeRipple"));
