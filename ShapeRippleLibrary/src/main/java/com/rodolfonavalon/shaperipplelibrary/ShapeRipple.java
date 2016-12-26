@@ -880,7 +880,7 @@ public class ShapeRipple extends View {
         private ShapeRipple shapeRipple;
         private Activity activity;
 
-        public LifeCycleManager(ShapeRipple shapeRipple) {
+        private LifeCycleManager(ShapeRipple shapeRipple) {
             this.shapeRipple = shapeRipple;
         }
 
