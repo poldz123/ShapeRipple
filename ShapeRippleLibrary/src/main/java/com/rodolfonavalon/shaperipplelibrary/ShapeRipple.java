@@ -17,12 +17,19 @@
 package com.rodolfonavalon.shaperipplelibrary;
 
 import android.animation.ValueAnimator;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.os.Build;
+import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
@@ -39,6 +46,8 @@ import java.util.Random;
 public class ShapeRipple extends View {
 
     private static final String TAG = ShapeRipple.class.getSimpleName();
+
+    private static final boolean DEBUG = true;
 
     /**
      * The default duration of the ripples
@@ -177,6 +186,16 @@ public class ShapeRipple extends View {
      */
     private BaseShapeRipple rippleShape;
 
+    /**
+     * This flag will handle that it was stopped by the user
+     */
+    private boolean isStopped;
+
+    /**
+     * The life activity life cycle the shape ripple uses.
+     */
+    private LifeCycleManager lifeCycleManager;
+
     public ShapeRipple(Context context) {
         super(context);
         init(context, null);
@@ -229,6 +248,11 @@ public class ShapeRipple extends View {
 
         start(rippleDuration);
 
+        // Only attach the activity for ICE_CREAM_SANDWICH and up
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            lifeCycleManager = new LifeCycleManager(this);
+            lifeCycleManager.attachListener();
+        }
     }
 
     @Override
@@ -361,7 +385,7 @@ public class ShapeRipple extends View {
         // Do a ripple value renderer
         rippleValueAnimator = ValueAnimator.ofFloat(0f, 1f);
         rippleValueAnimator.setDuration(millis);
-        rippleValueAnimator.setRepeatMode(ValueAnimator.INFINITE);
+        rippleValueAnimator.setRepeatMode(ValueAnimator.RESTART);
         rippleValueAnimator.setRepeatCount(ValueAnimator.INFINITE);
         rippleValueAnimator.setInterpolator(rippleInterpolator);
         rippleValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -496,6 +520,8 @@ public class ShapeRipple extends View {
         stop();
         initializeEntries(rippleShape);
         start(rippleDuration);
+
+        this.isStopped = false;
     }
 
     /**
@@ -503,6 +529,20 @@ public class ShapeRipple extends View {
      */
     public void stopRipple() {
         stop();
+
+        this.isStopped = true;
+    }
+
+    /**
+     * This restarts the ripple or continue where it was left off, this is mostly used
+     * for {@link LifeCycleManager}.
+     */
+    protected void restartRipple() {
+        if (this.isStopped) {
+            return;
+        }
+
+        startRipple();
     }
 
     /**
@@ -804,4 +844,116 @@ public class ShapeRipple extends View {
 
         reconfigureEntries();
     }
+
+    /**
+     * Log DEBUG with message
+     */
+    private static void logD(String message) {
+        if (!DEBUG) {
+            return;
+        }
+
+        Log.d(TAG, message);
+    }
+
+    /**
+     * Log ERROR with message
+     */
+    private static void logE(String message) {
+        if (!DEBUG) {
+            return;
+        }
+
+        Log.e(TAG, message);
+    }
+
+    /**
+     * This is a controller for ICE_CREAM_SANDWICH and up, where is handles the activity life cycle.
+     * Each call to {@link Activity#onPause()} will stop the ripple and restart it when it call the
+     * {@link Activity#onResume()}.
+     *
+     * We make sure that the listener is detached when activity has been destroyed.s
+     */
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    private static class LifeCycleManager implements Application.ActivityLifecycleCallbacks {
+
+        private ShapeRipple shapeRipple;
+        private Activity activity;
+
+        public LifeCycleManager(ShapeRipple shapeRipple) {
+            this.shapeRipple = shapeRipple;
+        }
+
+        private void attachListener() {
+            if (shapeRipple == null) {
+                logE("Shape Ripple is null, activity listener is not attached!!");
+                return;
+            }
+
+            activity = getActivity(shapeRipple.getContext());
+            activity.getApplication().registerActivityLifecycleCallbacks(this);
+        }
+
+        private void detachListener() {
+            if (activity == null) {
+                return;
+            }
+
+            activity.getApplication().unregisterActivityLifecycleCallbacks(this);
+        }
+
+        @Override
+        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {}
+
+        @Override
+        public void onActivityStarted(Activity activity) {}
+
+        @Override
+        public void onActivityResumed(Activity activity) {
+            if (shapeRipple == null || this.activity != activity) {
+                return;
+            }
+
+            shapeRipple.restartRipple();
+            logD("Activity is Resumed");
+        }
+
+        @Override
+        public void onActivityPaused(Activity activity) {
+            if (shapeRipple == null || this.activity != activity) {
+                return;
+            }
+
+            shapeRipple.stop();
+            logD("Activity is Paused");
+        }
+
+        @Override
+        public void onActivityStopped(Activity activity) {}
+
+        @Override
+        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {}
+
+        @Override
+        public void onActivityDestroyed(Activity activity) {
+            if (this.activity != activity){
+                return;
+            }
+
+            detachListener();
+            logD("Activity is Destroyed");
+        }
+
+        private Activity getActivity(Context context) {
+            while (context instanceof ContextWrapper) {
+                if (context instanceof Activity) {
+                    return (Activity)context;
+                }
+                context = ((ContextWrapper)context).getBaseContext();
+            }
+
+            throw new IllegalArgumentException("Context does not derived from any activity, Do not use the Application Context!!");
+        }
+    }
+
 }

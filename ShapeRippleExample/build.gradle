@@ -26,5 +26,5 @@ dependencies {
     compile 'com.android.support:design:24.2.0'
     compile 'org.adw.library:discrete-seekbar:1.0.1'
 
-    compile 'com.rodolfonavalon:ShapeRippleLibrary:0.3.0'
+//    compile 'com.rodolfonavalon:ShapeRippleLibrary:0.3.0'
 }
