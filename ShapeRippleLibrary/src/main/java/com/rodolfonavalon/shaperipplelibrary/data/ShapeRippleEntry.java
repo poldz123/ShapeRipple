@@ -16,6 +16,8 @@
 
 package com.rodolfonavalon.shaperipplelibrary.data;
 
+import android.graphics.Color;
+
 import com.rodolfonavalon.shaperipplelibrary.ShapeRipple;
 import com.rodolfonavalon.shaperipplelibrary.model.BaseShapeRipple;
 
@@ -69,9 +71,6 @@ public class ShapeRippleEntry {
      * on measure to the view, when render process happens
      */
     private int changingColorValue;
-
-    public ShapeRippleEntry() {
-    }
 
     public ShapeRippleEntry(BaseShapeRipple baseShapeRipple) {
         this.baseShapeRipple = baseShapeRipple;
@@ -157,6 +156,7 @@ public class ShapeRippleEntry {
         isRender = false;
         fractionValue = -1;
         radiusSize = 0;
-        originalColorValue = 0;
+        originalColorValue = Color.TRANSPARENT;
+        changingColorValue = Color.TRANSPARENT;
     }
 }

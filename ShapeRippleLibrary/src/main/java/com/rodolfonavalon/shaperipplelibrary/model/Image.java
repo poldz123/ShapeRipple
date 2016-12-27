@@ -23,8 +23,8 @@ public class Image extends BaseShapeRipple {
 
         // Get the current alpha channel of the color
         int currentAlpha = 0xFF & (color >> 24);
-
         shapePaint.setAlpha(currentAlpha);
+
         this.rect.set(x - currentImageSize, y - currentImageSize, x + (int) radiusSize, y + (int) radiusSize);
 
         canvas.drawBitmap(bitmap, null, this.rect, shapePaint);

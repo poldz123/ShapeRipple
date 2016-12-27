@@ -40,7 +40,8 @@ import com.rodolfonavalon.shaperipplelibrary.model.BaseShapeRipple;
 import com.rodolfonavalon.shaperipplelibrary.model.Circle;
 import com.rodolfonavalon.shaperipplelibrary.util.ShapePulseUtil;
 
-import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -59,7 +60,7 @@ public class ShapeRipple extends View {
      * Extra ripples for minimizing the empty space with in the
      * middle of the ripple
      */
-    private static final int EXTRA_RIPPLES = 1;
+    private static final int EXTRA_RIPPLES = 3;
 
     /**
      * The default ripple interval factor see {@link #rippleIntervalFactor} for
@@ -97,7 +98,7 @@ public class ShapeRipple extends View {
     /**
      * Ripple interval handles the actual timing of each spacing
      * of ripples in the list, calculated in {@link #onMeasure(int, int)}
-     *
+     * <p>
      * Warning: this always change overtime upon incrementing the {@link #DEFAULT_RIPPLE_INTERVAL_FACTOR}
      * see {@link #rippleIntervalCalculated} for the original interval
      */
@@ -158,11 +159,11 @@ public class ShapeRipple extends View {
     /**
      * The list of {@link ShapeRippleEntry} which is rendered in {@link #render(Float)}
      */
-    private List<ShapeRippleEntry> shapeRippleEntries;
+    private Deque<ShapeRippleEntry> shapeRippleEntries;
 
     /**
      * The list of developer predefined random colors which is used when {@link #enableRandomColor} is set to true.
-     *
+     * <p>
      * If this is not defined by the developer it will have a default value from {@link ShapePulseUtil#generateRandomColours(Context)}
      */
     private List<Integer> rippleRandomColors;
@@ -225,14 +226,14 @@ public class ShapeRipple extends View {
         shapePaint.setDither(true);
         shapePaint.setStyle(Paint.Style.STROKE);
 
-        this.shapeRippleEntries = new ArrayList<>();
+        this.shapeRippleEntries = new LinkedList<>();
         this.random = new Random();
 
         rippleShape = new Circle();
 
         rippleColor = Color.parseColor("#FFF44336");
         rippleFromColor = Color.parseColor("#FFF44336");
-        rippleToColor = Color.parseColor("#00FFFFFF");
+        rippleToColor = Color.TRANSPARENT;
         rippleStrokeWidth = getResources().getDimensionPixelSize(R.dimen.default_stroke_width);
         rippleRandomColors = ShapePulseUtil.generateRandomColours(getContext());
         rippleDuration = DEFAULT_RIPPLE_DURATION;
@@ -275,14 +276,15 @@ public class ShapeRipple extends View {
 
             if (shapeRippleEntry.isRender()) {
                 // Each ripple entry is a rendered as a shape
-                shapeRippleEntry.getBaseShapeRipple().draw(canvas,shapeRippleEntry.getX(),
-                                                                shapeRippleEntry.getY(),
-                                                                shapeRippleEntry.getRadiusSize(),
-                                                                shapeRippleEntry.getChangingColorValue(),
-                                                                shapeRippleEntries.size() - 1 - shapeRippleEntry.getRippleIndex(),
-                                                                shapePaint);
+                shapeRippleEntry.getBaseShapeRipple().draw(canvas, shapeRippleEntry.getX(),
+                        shapeRippleEntry.getY(),
+                        shapeRippleEntry.getRadiusSize(),
+                        shapeRippleEntry.getChangingColorValue(),
+                        shapeRippleEntries.size() - 1 - shapeRippleEntry.getRippleIndex(),
+                        shapePaint);
             }
         }
+
     }
 
     @Override
@@ -295,7 +297,7 @@ public class ShapeRipple extends View {
 
         // the ripple radius based on the x or y
         maxRippleRadius = (Math.min(viewWidth, viewHeight) / 2 - (rippleStrokeWidth / 2));
-        rippleIntervalCalculated = ((float)rippleStrokeWidth / (float)maxRippleRadius);
+        rippleIntervalCalculated = ((float) rippleStrokeWidth / (float) maxRippleRadius);
         rippleInterval = rippleIntervalCalculated * rippleIntervalFactor;
         initializeEntries(rippleShape);
 
@@ -320,7 +322,7 @@ public class ShapeRipple extends View {
     /**
      * This method will initialize the list of {@link ShapeRippleEntry} with
      * initial position, color, index, and fraction value.
-     *
+     * <p>
      * The list will contain an extra ripple which is define in {@link #EXTRA_RIPPLES} that minimize the
      * extra space within the middle of the ripples.
      *
@@ -338,8 +340,6 @@ public class ShapeRipple extends View {
         shapeRippleEntries.clear();
         int maxNumberOfRipples = maxRippleRadius / rippleStrokeWidth;
         for (int i = 0; i < maxNumberOfRipples + EXTRA_RIPPLES; i++) {
-
-
             ShapeRippleEntry shapeRippleEntry = new ShapeRippleEntry(shapeRipple);
             shapeRippleEntry.setX(enableRandomPosition ? random.nextInt(viewWidth) : viewWidth / 2);
             shapeRippleEntry.setY(enableRandomPosition ? random.nextInt(viewHeight) : viewHeight / 2);
@@ -351,7 +351,6 @@ public class ShapeRipple extends View {
             } else {
                 shapeRippleEntry.setOriginalColorValue(rippleColor);
             }
-
 
             shapeRippleEntries.add(shapeRippleEntry);
 
@@ -365,9 +364,9 @@ public class ShapeRipple extends View {
     /**
      * Refreshes the list of ticket entries after certain options are changed such as the {@link #rippleColor},
      * {@link #rippleShape}, {@link #enableRandomPosition}, etc.
-     *
+     * <p>
      * This will only execute after the {@link #initializeEntries(BaseShapeRipple)}, this is safe to call before it.
-      */
+     */
     private void reconfigureEntries() {
 
         // we do not re configure when dimension is not calculated
@@ -417,10 +416,10 @@ public class ShapeRipple extends View {
     /**
      * This is the main renderer for the list of ripple, we always check that the first ripple is already
      * finished.
-     *
+     * <p>
      * When the ripple is finished it is {@link ShapeRippleEntry#reset()} and move to the end of the list to be reused all over again
      * to prevent creating a new instance of it.
-     *
+     * <p>
      * Each ripple will be configured to be either rendered or not rendered to the view to prevent extra rendering process.
      *
      * @param fractionValue the current fraction value of the {@link #rippleValueAnimator}
@@ -434,7 +433,7 @@ public class ShapeRipple extends View {
 
         float shapeFractionValue = fractionValue;
 
-        ShapeRippleEntry firstEntry = shapeRippleEntries.get(0);
+        ShapeRippleEntry firstEntry = shapeRippleEntries.peekFirst();
 
         // Calculate the fraction value of the first entry
         float firstEntryFractionValue = firstEntry.getFractionValue() + Math.max(shapeFractionValue - lastShapeFractionValue, 0);
@@ -443,13 +442,13 @@ public class ShapeRipple extends View {
         if (firstEntryFractionValue >= 1.0f) {
 
             // Remove and relocate the first entry to the last entry
-            ShapeRippleEntry removedEntry = shapeRippleEntries.remove(0);
+            ShapeRippleEntry removedEntry = shapeRippleEntries.pop();
             removedEntry.reset();
             removedEntry.setOriginalColorValue(enableRandomColor ? rippleRandomColors.get(random.nextInt(rippleRandomColors.size())) : rippleColor);
-            shapeRippleEntries.add(removedEntry);
+            shapeRippleEntries.addLast(removedEntry);
 
             // Get the new first entry of the list
-            firstEntry = shapeRippleEntries.get(0);
+            firstEntry = shapeRippleEntries.peekFirst();
 
             // Calculate the new fraction value of the first entry of the list
             firstEntryFractionValue = firstEntry.getFractionValue() + Math.max(shapeFractionValue - lastShapeFractionValue, 0);
@@ -487,13 +486,14 @@ public class ShapeRipple extends View {
             if (index == 0) {
                 shapeRippleEntry.setFractionValue(firstEntryFractionValue);
             } else {
-                shapeRippleEntry.setFractionValue(firstEntryFractionValue > 0 ? currentShapeFractionValue : currentShapeFractionValue + 1);
+                shapeRippleEntry.setFractionValue(currentShapeFractionValue);
             }
 
             // calculate the color if we enabled the color transition
             shapeRippleEntry.setChangingColorValue(enableColorTransition
                     ? ShapePulseUtil.evaluateTransitionColor(currentShapeFractionValue, shapeRippleEntry.getOriginalColorValue(), rippleToColor)
                     : rippleColor);
+
             // calculate the current ripple size
             shapeRippleEntry.setRadiusSize(maxRippleRadius * currentShapeFractionValue);
 
@@ -654,7 +654,7 @@ public class ShapeRipple extends View {
 
     /**
      * Change the ripple interval for each ripple.
-     *
+     * <p>
      * Value must be between 0f - 2f.
      *
      * @param rippleInterval The floating ripple interval for each ripple
@@ -716,7 +716,7 @@ public class ShapeRipple extends View {
      * Change the base color of each ripple
      *
      * @param rippleColor The ripple color
-     * @param instant flag for when changing color is instant without delay
+     * @param instant     flag for when changing color is instant without delay
      */
     public void setRippleColor(int rippleColor, boolean instant) {
         this.rippleColor = rippleColor;
@@ -739,7 +739,7 @@ public class ShapeRipple extends View {
      * Change the starting color of the color transition
      *
      * @param rippleFromColor The starting color
-     * @param instant flag for when changing color is instant without delay
+     * @param instant         flag for when changing color is instant without delay
      */
     public void setRippleFromColor(int rippleFromColor, boolean instant) {
         this.rippleFromColor = rippleFromColor;
@@ -762,7 +762,7 @@ public class ShapeRipple extends View {
      * Change the end color of the color transition
      *
      * @param rippleToColor The end color
-     * @param instant flag for when changing color is instant without delay
+     * @param instant       flag for when changing color is instant without delay
      */
     public void setRippleToColor(int rippleToColor, boolean instant) {
         this.rippleToColor = rippleToColor;
@@ -887,7 +887,7 @@ public class ShapeRipple extends View {
      * This is a controller for ICE_CREAM_SANDWICH and up, where is handles the activity life cycle.
      * Each call to {@link Activity#onPause()} will stop the ripple and restart it when it call the
      * {@link Activity#onResume()}.
-     *
+     * <p>
      * We make sure that the listener is detached when activity has been destroyed.s
      */
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -952,7 +952,7 @@ public class ShapeRipple extends View {
 
         @Override
         public void onActivityDestroyed(Activity activity) {
-            if (this.activity != activity){
+            if (this.activity != activity) {
                 return;
             }
 
@@ -963,9 +963,9 @@ public class ShapeRipple extends View {
         private Activity getActivity(Context context) {
             while (context instanceof ContextWrapper) {
                 if (context instanceof Activity) {
-                    return (Activity)context;
+                    return (Activity) context;
                 }
-                context = ((ContextWrapper)context).getBaseContext();
+                context = ((ContextWrapper) context).getBaseContext();
             }
 
             throw new IllegalArgumentException("Context does not derived from any activity, Do not use the Application Context!!");
