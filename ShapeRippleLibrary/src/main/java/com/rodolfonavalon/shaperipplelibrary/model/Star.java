@@ -17,6 +17,7 @@
 package com.rodolfonavalon.shaperipplelibrary.model;
 
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Path;
 
 public class Star extends BaseShapeRipple {
@@ -26,15 +27,16 @@ public class Star extends BaseShapeRipple {
     public Star() {
         path= new Path();
     }
+
     @Override
-    public void draw(Canvas canvas, int x, int y, float currentRadiusSize, int currentColor, int rippleIndex) {
+    public void draw(Canvas canvas, int x, int y, float radiusSize, int color, int rippleIndex, Paint shapePaint) {
 
         //TODO: need to improve performance due to drawing to canvas
 
         float middleHorizontal = x;
         float middleVertical = y;
         float min = 0.0f;
-        float half = currentRadiusSize;
+        float half = radiusSize;
         middleHorizontal = middleHorizontal - half;
         middleVertical = middleVertical - half;
 
@@ -52,7 +54,7 @@ public class Star extends BaseShapeRipple {
         path.lineTo(middleHorizontal + half * (0.5f + min), middleVertical + half * (0.84f + min));
 
         path.close();
-        shapePaint.setColor(currentColor);
+        shapePaint.setColor(color);
         canvas.drawPath(path, shapePaint);
         path.reset();
     }

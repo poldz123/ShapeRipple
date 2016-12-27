@@ -17,6 +17,7 @@
 package com.rodolfonavalon.shaperipplelibrary.model;
 
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Path;
 
 public class Triangle extends BaseShapeRipple {
@@ -26,21 +27,22 @@ public class Triangle extends BaseShapeRipple {
     public Triangle() {
         path = new Path();
     }
+
     @Override
-    public void draw(Canvas canvas, int x, int y, float currentRadiusSize, int currentColor, int rippleIndex) {
+    public void draw(Canvas canvas, int x, int y, float radiusSize, int color, int rippleIndex, Paint shapePaint) {
 
         //TODO: need to improve performance due to drawing to canvas
 
-        int mY = (y - (int)currentRadiusSize);
-        int rX = (x - (int)currentRadiusSize);
-        int lX = (x + (int)currentRadiusSize);
-        int bY = (y + (int)currentRadiusSize);
+        int mY = (y - (int) radiusSize);
+        int rX = (x - (int) radiusSize);
+        int lX = (x + (int) radiusSize);
+        int bY = (y + (int) radiusSize);
 
         path.moveTo(x,  mY);
         path.lineTo(rX, bY);
         path.lineTo(lX, bY);
         path.close();
-        shapePaint.setColor(currentColor);
+        shapePaint.setColor(color);
         canvas.drawPath(path, shapePaint);
         path.reset();
 

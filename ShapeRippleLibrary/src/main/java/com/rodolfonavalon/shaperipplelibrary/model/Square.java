@@ -17,6 +17,7 @@
 package com.rodolfonavalon.shaperipplelibrary.model;
 
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Rect;
 
 public class Square extends BaseShapeRipple {
@@ -26,14 +27,15 @@ public class Square extends BaseShapeRipple {
     public Square() {
         rect = new Rect();
     }
-    @Override
-    public void draw(Canvas canvas, int x, int y, float currentRadiusSize, int currentColor, int rippleIndex) {
-        rect.left = (int)(x - currentRadiusSize);
-        rect.right = (int)(x + currentRadiusSize);
-        rect.top = (int)(y - currentRadiusSize);
-        rect.bottom = (int)(y + currentRadiusSize);
 
-        shapePaint.setColor(currentColor);
+    @Override
+    public void draw(Canvas canvas, int x, int y, float radiusSize, int color, int rippleIndex, Paint shapePaint) {
+        rect.left = (int)(x - radiusSize);
+        rect.right = (int)(x + radiusSize);
+        rect.top = (int)(y - radiusSize);
+        rect.bottom = (int)(y + radiusSize);
+
+        shapePaint.setColor(color);
         canvas.drawRect(rect , shapePaint);
     }
 }

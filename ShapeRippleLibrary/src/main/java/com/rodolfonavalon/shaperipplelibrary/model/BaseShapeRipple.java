@@ -20,12 +20,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 public abstract class BaseShapeRipple {
-
-    /**
-     * The default paint for the ripple
-     */
-    protected Paint shapePaint;
-
     /**
      * The width of the layout in pixel
      */
@@ -35,49 +29,6 @@ public abstract class BaseShapeRipple {
      * The height of the layout in pixel
      */
     protected int height;
-
-    /**
-     * The stroke width of ripple in pixel
-     */
-    protected float strokeWidth;
-
-    public BaseShapeRipple() {
-        init();
-    }
-
-    private void init() {
-        shapePaint = new Paint();
-        shapePaint.setAntiAlias(true);
-        shapePaint.setDither(true);
-        shapePaint.setStyle(Paint.Style.STROKE);
-    }
-
-    public abstract void draw(Canvas canvas, int x, int y, float currentRadiusSize, int currentColor, int rippleIndex);
-
-    /**
-     * @return The default paint for the ripple
-     */
-    public Paint getShapePaint() {
-        return shapePaint;
-    }
-
-    /**
-     * @return The stroke width in pixel
-     */
-    public float getStrokeWidth() {
-        return strokeWidth;
-    }
-
-    /**
-     * Change the stroke width of the ripple
-     *
-     * @param strokeWidth The stroke width in pixel
-     */
-    public void setStrokeWidth(float strokeWidth) {
-        this.strokeWidth = strokeWidth;
-
-        shapePaint.setStrokeWidth(strokeWidth);
-    }
 
     /**
      * @return The width of the layout in pixel
@@ -110,4 +61,17 @@ public abstract class BaseShapeRipple {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    /**
+     * This will draw the actual ripple to the canvas.
+     *
+     * @param canvas The canvas where the ripple is drawn
+     * @param x The x axis if the ripple, x means the middle x-axis.
+     * @param y The y axis if the ripple, y means the middle y-axis.
+     * @param radiusSize The current radius size if the ripple, this changes over time.
+     * @param color The current color of the ripple, this changes over time.
+     * @param rippleIndex The index of the ripple, 0 index is the middle and n-1 is the last outer ripple
+     * @param shapePaint The paint of the ripple.
+     */
+    public abstract void draw(Canvas canvas, int x, int y, float radiusSize, int color, int rippleIndex, Paint shapePaint);
 }

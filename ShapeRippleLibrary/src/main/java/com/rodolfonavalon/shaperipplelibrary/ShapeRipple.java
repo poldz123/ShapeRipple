@@ -26,6 +26,7 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -182,9 +183,14 @@ public class ShapeRipple extends View {
     private Random random;
 
     /**
-     * The renderer of shape ripples which is drawn in the {@link BaseShapeRipple#draw(Canvas, int, int, float, int, int)}
+     * The renderer of shape ripples which is drawn in the {@link BaseShapeRipple#draw(Canvas, int, int, float, int, int, Paint)}
      */
     private BaseShapeRipple rippleShape;
+
+    /**
+     * The default paint for the ripple
+     */
+    protected Paint shapePaint;
 
     /**
      * This flag will handle that it was stopped by the user
@@ -212,6 +218,12 @@ public class ShapeRipple extends View {
     }
 
     private void init(Context context, AttributeSet attrs) {
+
+        // initialize the paint for the shape ripple
+        shapePaint = new Paint();
+        shapePaint.setAntiAlias(true);
+        shapePaint.setDither(true);
+        shapePaint.setStyle(Paint.Style.STROKE);
 
         this.shapeRippleEntries = new ArrayList<>();
         this.random = new Random();
@@ -263,9 +275,12 @@ public class ShapeRipple extends View {
 
             if (shapeRippleEntry.isRender()) {
                 // Each ripple entry is a rendered as a shape
-                shapeRippleEntry.getBaseShapeRipple().draw(canvas,shapeRippleEntry.getX(), shapeRippleEntry.getY(),
-                                                                shapeRippleEntry.getRadiusSize(), shapeRippleEntry.getChangingColorValue(),
-                                                                shapeRippleEntries.size() - 1 - shapeRippleEntry.getRippleIndex());
+                shapeRippleEntry.getBaseShapeRipple().draw(canvas,shapeRippleEntry.getX(),
+                                                                shapeRippleEntry.getY(),
+                                                                shapeRippleEntry.getRadiusSize(),
+                                                                shapeRippleEntry.getChangingColorValue(),
+                                                                shapeRippleEntries.size() - 1 - shapeRippleEntry.getRippleIndex(),
+                                                                shapePaint);
             }
         }
     }
@@ -312,8 +327,8 @@ public class ShapeRipple extends View {
      * @param shapeRipple the renderer of shape ripples
      */
     private void initializeEntries(BaseShapeRipple shapeRipple) {
-
-        shapeRipple.setStrokeWidth(rippleStrokeWidth);
+        // Sets the stroke width of the ripple
+        shapePaint.setStrokeWidth(rippleStrokeWidth);
 
         if (viewWidth == 0 && viewHeight == 0) {
             return;
@@ -361,7 +376,8 @@ public class ShapeRipple extends View {
             return;
         }
 
-        rippleShape.setStrokeWidth(rippleStrokeWidth);
+        // sets the stroke width of the ripple
+        shapePaint.setStrokeWidth(rippleStrokeWidth);
 
         for (ShapeRippleEntry shapeRippleEntry : shapeRippleEntries) {
             if (enableRandomColor) {
