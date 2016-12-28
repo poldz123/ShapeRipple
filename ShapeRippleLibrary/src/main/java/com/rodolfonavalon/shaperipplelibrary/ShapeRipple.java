@@ -49,6 +49,9 @@ public class ShapeRipple extends View {
 
     private static final String TAG = ShapeRipple.class.getSimpleName();
 
+    /**
+     * Debug logging flag for the library
+     */
     private static final boolean DEBUG = true;
 
     /**
@@ -397,6 +400,7 @@ public class ShapeRipple extends View {
         // we do not re configure when dimension is not calculated
         // or if the list is empty
         if (viewWidth == 0 && viewHeight == 0 && (shapeRippleEntries == null || shapeRippleEntries.size() == 0)) {
+            logE("The view dimensions was not calculated!!");
             return;
         }
 
@@ -453,6 +457,7 @@ public class ShapeRipple extends View {
 
         // Do not render when entries are empty
         if (shapeRippleEntries.size() == 0) {
+            logD("There are no ripple entries that was created!!");
             return;
         }
 
@@ -580,6 +585,7 @@ public class ShapeRipple extends View {
      */
     protected void restartRipple() {
         if (this.isStopped) {
+            logD("Restarted from stopped ripple!!");
             return;
         }
 
