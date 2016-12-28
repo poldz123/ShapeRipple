@@ -52,6 +52,21 @@ public class ShapeRipple extends View {
     private static final boolean DEBUG = true;
 
     /**
+     * Default color of the ripple
+     */
+    private static final int DEFAULT_RIPPLE_COLOR = Color.parseColor("#FFF44336");
+
+    /**
+     * Default color of the start ripple color transition
+     */
+    private static final int DEFAULT_RIPPLE_FROM_COLOR = Color.parseColor("#FFF44336");
+
+    /**
+     * Default color of the end ripple color transition
+     */
+    private static final int DEFAULT_RIPPLE_TO_COLOR = Color.parseColor("#00FFFFFF");
+
+    /**
      * The default duration of the ripples
      */
     private static final int DEFAULT_RIPPLE_DURATION = 1500;
@@ -157,6 +172,15 @@ public class ShapeRipple extends View {
     private boolean enableRandomColor = false;
 
     /**
+     * Enables the stroke style of the ripples, it is false by default
+     *
+     * This means that if it is enabled it will use the {@link Paint#setStyle(Paint.Style)} as
+     * {@link Paint.Style#STROKE}, by default it will use the {@link Paint.Style#FILL}.
+     *
+     */
+    private boolean enableStrokeStyle = false;
+
+    /**
      * The list of {@link ShapeRippleEntry} which is rendered in {@link #render(Float)}
      */
     private Deque<ShapeRippleEntry> shapeRippleEntries;
@@ -231,9 +255,9 @@ public class ShapeRipple extends View {
 
         rippleShape = new Circle();
 
-        rippleColor = Color.parseColor("#FFF44336");
-        rippleFromColor = Color.parseColor("#FFF44336");
-        rippleToColor = Color.TRANSPARENT;
+        rippleColor = DEFAULT_RIPPLE_COLOR;
+        rippleFromColor = DEFAULT_RIPPLE_FROM_COLOR;
+        rippleToColor = DEFAULT_RIPPLE_TO_COLOR;
         rippleStrokeWidth = getResources().getDimensionPixelSize(R.dimen.default_stroke_width);
         rippleRandomColors = ShapePulseUtil.generateRandomColours(getContext());
         rippleDuration = DEFAULT_RIPPLE_DURATION;
@@ -245,13 +269,14 @@ public class ShapeRipple extends View {
             TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ConnectingRipple, 0, 0);
 
             try {
-                rippleColor = ta.getColor(R.styleable.ConnectingRipple_ripple_color, Color.parseColor("#FFF44336"));
-                rippleFromColor = ta.getColor(R.styleable.ConnectingRipple_ripple_from_color, Color.parseColor("#FFF44336"));
-                rippleToColor = ta.getColor(R.styleable.ConnectingRipple_ripple_to_color, Color.parseColor("#00FFFFFF"));
+                rippleColor = ta.getColor(R.styleable.ConnectingRipple_ripple_color, DEFAULT_RIPPLE_COLOR);
+                rippleFromColor = ta.getColor(R.styleable.ConnectingRipple_ripple_from_color, DEFAULT_RIPPLE_FROM_COLOR);
+                rippleToColor = ta.getColor(R.styleable.ConnectingRipple_ripple_to_color, DEFAULT_RIPPLE_TO_COLOR);
                 setRippleDuration(ta.getInteger(R.styleable.ConnectingRipple_ripple_duration, DEFAULT_RIPPLE_DURATION));
                 enableColorTransition = ta.getBoolean(R.styleable.ConnectingRipple_enable_color_transition, true);
                 enableSingleRipple = ta.getBoolean(R.styleable.ConnectingRipple_enable_single_ripple, false);
                 enableRandomPosition = ta.getBoolean(R.styleable.ConnectingRipple_enable_random_position, false);
+                setEnableStrokeStyle(ta.getBoolean(R.styleable.ConnectingRipple_enable_stroke_style, false));
                 setEnableRandomColor(ta.getBoolean(R.styleable.ConnectingRipple_enable_random_color, false));
                 setRippleStrokeWidth(ta.getDimensionPixelSize(R.styleable.ConnectingRipple_ripple_stroke_width, getResources().getDimensionPixelSize(R.dimen.default_stroke_width)));
             } finally {
@@ -639,6 +664,13 @@ public class ShapeRipple extends View {
     }
 
     /**
+     * @return True if it is using STROKE style for each ripple
+     */
+    public boolean isEnableStrokeStyle() {
+        return enableStrokeStyle;
+    }
+
+    /**
      * @return The shape renderer for the shape ripples
      */
     public BaseShapeRipple getRippleShape() {
@@ -825,6 +857,21 @@ public class ShapeRipple extends View {
         this.enableRandomColor = enableRandomColor;
 
         reconfigureEntries();
+    }
+
+    /**
+     * Enables the stroke style of each ripple
+     *
+     * @param enableStrokeStyle flag for enabling STROKE style
+     */
+    public void setEnableStrokeStyle(boolean enableStrokeStyle) {
+        this.enableStrokeStyle = enableStrokeStyle;
+
+        if (enableStrokeStyle) {
+            this.shapePaint.setStyle(Paint.Style.STROKE);
+        } else {
+            this.shapePaint.setStyle(Paint.Style.FILL);
+        }
     }
 
     /**

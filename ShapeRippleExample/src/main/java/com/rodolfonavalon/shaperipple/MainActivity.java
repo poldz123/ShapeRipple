@@ -51,12 +51,13 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
 
         ((AppCompatCheckBox) findViewById(R.id.enable_color_transition)).setOnCheckedChangeListener(this);
         ((AppCompatCheckBox) findViewById(R.id.enable_single_ripple)).setOnCheckedChangeListener(this);
+        ((AppCompatCheckBox) findViewById(R.id.enable_stroke_ripple)).setOnCheckedChangeListener(this);
         ((AppCompatCheckBox) findViewById(R.id.enable_random_position)).setOnCheckedChangeListener(this);
         ((AppCompatCheckBox) findViewById(R.id.enable_random_color)).setOnCheckedChangeListener(this);
 
         ripple = (ShapeRipple) findViewById(R.id.ripple);
         ripple.setRippleShape(new Circle());
-        DiscreteSeekBar rippleDuration = (DiscreteSeekBar) findViewById(R.id.ripple_duration);
+        final DiscreteSeekBar rippleDuration = (DiscreteSeekBar) findViewById(R.id.ripple_duration);
         final DiscreteSeekBar rippleIntervalDuration = (DiscreteSeekBar) findViewById(R.id.ripple_interval);
         rippleDuration.setOnProgressChangeListener(this);
         rippleIntervalDuration.setOnProgressChangeListener(this);
@@ -77,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                 return true;
             }
         });
+
+        rippleIntervalDuration.setProgress(150);
     }
 
     private void setupToolbar() {
@@ -171,6 +174,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                 break;
             case R.id.enable_random_color:
                 ripple.setEnableRandomColor(buttonView.isChecked());
+                break;
+            case R.id.enable_stroke_ripple:
+                ripple.setEnableStrokeStyle(buttonView.isChecked());
                 break;
             default:
 

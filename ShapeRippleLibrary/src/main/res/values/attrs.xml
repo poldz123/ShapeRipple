@@ -7,6 +7,7 @@
         <attr name="enable_color_transition" format="boolean" />
         <attr name="enable_random_position" format="boolean" />
         <attr name="enable_random_color" format="boolean" />
+        <attr name="enable_stroke_style" format="boolean" />
         <attr name="ripple_from_color" format="color" />
         <attr name="ripple_to_color" format="color" />
         <attr name="ripple_stroke_width" format="dimension" />

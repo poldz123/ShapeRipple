@@ -140,6 +140,16 @@
                         android:text="Single ripple" />
 
                     <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/enable_stroke_ripple"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:button="@null"
+                        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                        android:text="Stroke Ripple" />
+
+                    <android.support.v7.widget.AppCompatCheckBox
                         android:id="@+id/enable_color_transition"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
