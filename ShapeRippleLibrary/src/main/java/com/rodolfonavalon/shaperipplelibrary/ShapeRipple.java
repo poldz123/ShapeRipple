@@ -224,7 +224,7 @@ public class ShapeRipple extends View {
         shapePaint = new Paint();
         shapePaint.setAntiAlias(true);
         shapePaint.setDither(true);
-        shapePaint.setStyle(Paint.Style.STROKE);
+        shapePaint.setStyle(Paint.Style.FILL);
 
         this.shapeRippleEntries = new LinkedList<>();
         this.random = new Random();
@@ -467,7 +467,7 @@ public class ShapeRipple extends View {
             // set the updated index
             shapeRippleEntry.setRippleIndex(index);
 
-            // calculate the shape fraction by index
+              // calculate the shape fraction by index
             float currentShapeFractionValue = firstEntryFractionValue - rippleInterval * index;
 
             // Check if we render the current ripple in the list
