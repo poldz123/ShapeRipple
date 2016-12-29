@@ -12,7 +12,14 @@ public class Image extends BaseShapeRipple {
     private Bitmap bitmap;
     private Rect rect;
 
-    public Image(Context context, int bitmapResource) {
+    private final int bitmapResource;
+
+    public Image(int bitmapResource) {
+        this.bitmapResource = bitmapResource;
+    }
+
+    @Override
+    public void onSetup(Context context, Paint shapePaint) {
         this.rect = new Rect();
         this.bitmap = BitmapFactory.decodeResource(context.getResources(), bitmapResource);
     }

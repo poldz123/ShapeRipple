@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                         ripple.setRippleShape(new Star());
                         break;
                     case R.id.nav_image:
-                        ripple.setRippleShape(new Image(MainActivity.this, R.drawable.dodge));
+                        ripple.setRippleShape(new Image(R.drawable.dodge));
                         break;
                     case R.id.nav_github:
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/poldz123/ShapeRipple"));

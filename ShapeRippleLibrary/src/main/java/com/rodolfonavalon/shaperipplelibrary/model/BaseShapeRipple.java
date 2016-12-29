@@ -16,8 +16,11 @@
 
 package com.rodolfonavalon.shaperipplelibrary.model;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+
+import com.rodolfonavalon.shaperipplelibrary.ShapeRipple;
 
 public abstract class BaseShapeRipple {
     /**
@@ -61,6 +64,17 @@ public abstract class BaseShapeRipple {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    /**
+     * Setup method for the {@link BaseShapeRipple} before ripple rendering happens.
+     *
+     * NOTE: This is only called once every time the {@link BaseShapeRipple} is attached to the
+     * {@link ShapeRipple}
+     *
+     * @param context The {@link ShapeRipple} context
+     * @param shapePaint The Paint that the ripple uses to render in the canvas.
+     */
+    public abstract void onSetup(Context context, Paint shapePaint);
 
     /**
      * This will draw the actual ripple to the canvas.

@@ -16,6 +16,7 @@
 
 package com.rodolfonavalon.shaperipplelibrary.model;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -24,7 +25,8 @@ public class Square extends BaseShapeRipple {
 
     private Rect rect;
 
-    public Square() {
+    @Override
+    public void onSetup(Context context, Paint shapePaint) {
         rect = new Rect();
     }
 

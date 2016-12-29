@@ -16,6 +16,7 @@
 
 package com.rodolfonavalon.shaperipplelibrary.model;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -24,7 +25,8 @@ public class Triangle extends BaseShapeRipple {
 
     private Path path;
 
-    public Triangle() {
+    @Override
+    public void onSetup(Context context, Paint shapePaint) {
         path = new Path();
     }
 

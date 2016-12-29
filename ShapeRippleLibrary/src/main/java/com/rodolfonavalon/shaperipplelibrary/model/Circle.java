@@ -16,15 +16,14 @@
 
 package com.rodolfonavalon.shaperipplelibrary.model;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
 public class Circle extends BaseShapeRipple {
 
-    public static final String TAG = Circle.class.getSimpleName();
-
-    public Circle() {
-    }
+    @Override
+    public void onSetup(Context context, Paint shapePaint) {}
 
     @Override
     public void draw(Canvas canvas, int x, int y, float radiusSize, int color, int rippleIndex, Paint shapePaint) {

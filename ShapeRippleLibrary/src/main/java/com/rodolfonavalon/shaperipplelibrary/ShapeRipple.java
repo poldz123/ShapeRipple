@@ -257,6 +257,7 @@ public class ShapeRipple extends View {
         this.random = new Random();
 
         rippleShape = new Circle();
+        rippleShape.onSetup(context, shapePaint);
 
         rippleColor = DEFAULT_RIPPLE_COLOR;
         rippleFromColor = DEFAULT_RIPPLE_FROM_COLOR;
@@ -416,7 +417,6 @@ public class ShapeRipple extends View {
 
             shapeRippleEntry.setBaseShapeRipple(rippleShape);
         }
-
     }
 
     /**
@@ -887,6 +887,9 @@ public class ShapeRipple extends View {
      */
     public void setRippleShape(BaseShapeRipple rippleShape) {
         this.rippleShape = rippleShape;
+
+        // Make sure we call onSetup right away
+        this.rippleShape.onSetup(getContext(), this.shapePaint);
 
         reconfigureEntries();
     }
