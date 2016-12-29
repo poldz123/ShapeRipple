@@ -309,7 +309,7 @@ public class ShapeRipple extends View {
                         shapeRippleEntry.getY(),
                         shapeRippleEntry.getRadiusSize(),
                         shapeRippleEntry.getChangingColorValue(),
-                        shapeRippleEntries.size() - 1 - shapeRippleEntry.getRippleIndex(),
+                        shapeRippleEntry.getRippleIndex(),
                         shapePaint);
             }
         }
