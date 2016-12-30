@@ -52,7 +52,7 @@ All Available Attributes
 
 Customizing Ripples
 =======
-Customizing the ripple is easy. You can create a class that extends [**BaseShapeRipple**](https://github.com/poldz123/ShapeRipple/blob/develop/ShapeRippleLibrary/src/main/java/com/rodolfonavalon/shaperipplelibrary/model/BaseShapeRipple.java) and fill out the:
+Customizing the ripple is easy. You can create a class that extends [**BaseShapeRipple**](https://github.com/poldz123/ShapeRipple/blob/master/ShapeRippleLibrary/src/main/java/com/rodolfonavalon/shaperipplelibrary/model/BaseShapeRipple.java) and fill out the:
 
 `onSetup(Context context, Paint shapePaint)`
 - This is called only once before any rendering happens, good for loading data/resources.
@@ -60,7 +60,7 @@ Customizing the ripple is easy. You can create a class that extends [**BaseShape
 `draw(Canvas canvas, int x, int y, float radiusSize, int color, int rippleIndex, Paint shapePaint)`
 - This draws the actual ripple to the canvas. You can create your custom shapes here whatever you want.
 
-For full documentation of the of the methods above go the the [**BaseShapeRipple**](https://github.com/poldz123/ShapeRipple/blob/develop/ShapeRippleLibrary/src/main/java/com/rodolfonavalon/shaperipplelibrary/model/BaseShapeRipple.java) class.
+For full documentation of the of the methods above go the the [**BaseShapeRipple**](https://github.com/poldz123/ShapeRipple/blob/master/ShapeRippleLibrary/src/main/java/com/rodolfonavalon/shaperipplelibrary/model/BaseShapeRipple.java) class.
 
 Usage
 =======
