@@ -2,6 +2,9 @@
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/poldz123/ShapeRipple/master/LICENSE)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/poldz123/ShapeRipple.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
 
+
+![alt tag](https://raw.githubusercontent.com/poldz123/ShapeRipple/master/design/shape_ripple_feature_graphic.png)
+
 [**Shape Ripple**](https://github.com/poldz123/ShapeRipple) is a library that emulates a ripple like animations with cool tweaks
 on the go. It runs on [API level 11](https://android-arsenal.com/api?level=11) and upwards.
 
