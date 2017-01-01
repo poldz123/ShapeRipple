@@ -17,6 +17,9 @@ android:
 before_script:
  - chmod +x gradlew
 
+after_script:
+ - ./gradlew bintrayUpload
+
 notifications:
   email: false
 
