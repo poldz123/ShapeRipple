@@ -52,7 +52,7 @@ public class ShapeRipple extends View {
     /**
      * Debug logging flag for the library
      */
-    private static final boolean DEBUG = true;
+    private static boolean DEBUG = false;
 
     /**
      * Default color of the ripple
@@ -915,6 +915,13 @@ public class ShapeRipple extends View {
         this.rippleRandomColors = rippleRandomColors;
 
         reconfigureEntries();
+    }
+
+    /**
+     * Enabled the debugging for the library
+     */
+    private static void enableDebugging() {
+        ShapeRipple.DEBUG = true;
     }
 
     /**
