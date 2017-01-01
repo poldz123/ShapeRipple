@@ -7,8 +7,8 @@ android:
   components:
     - tools
     - platform-tools
-    - build-tools-24.0.3
-    - android-24
+    - build-tools-23.0.3
+    - android-23
     - extra-android-m2repository
     - extra-google-m2repository
     - extra-android-support
@@ -18,7 +18,7 @@ before_script:
  - chmod +x gradlew
 
 notifications:
-  email: true
+  email: false
 
 before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
