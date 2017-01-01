@@ -8,7 +8,7 @@ android:
     - tools
     - platform-tools
     - build-tools-23.0.3
-    - android-23
+    - android-24
     - extra-android-m2repository
     - extra-google-m2repository
     - extra-android-support
@@ -19,9 +19,6 @@ before_script:
 
 notifications:
   email: false
-
-before_cache:
-- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 
 cache:
   directories:
