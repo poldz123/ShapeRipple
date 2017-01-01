@@ -920,7 +920,7 @@ public class ShapeRipple extends View {
     /**
      * Enabled the debugging for the library
      */
-    private static void enableDebugging() {
+    public static void enableDebugging() {
         ShapeRipple.DEBUG = true;
     }
 
