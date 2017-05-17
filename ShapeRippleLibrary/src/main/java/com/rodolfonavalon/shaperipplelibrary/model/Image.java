@@ -7,7 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-public class Image extends BaseShapeRipple {
+public class Image extends BaseShape {
 
     private Bitmap bitmap;
     private Rect rect;
@@ -25,7 +25,7 @@ public class Image extends BaseShapeRipple {
     }
 
     @Override
-    public void draw(Canvas canvas, int x, int y, float radiusSize, int color, int rippleIndex, Paint shapePaint) {
+    public void onDraw(Canvas canvas, int x, int y, float radiusSize, int color, int rippleIndex, Paint shapePaint) {
         int currentImageSize = (int) radiusSize;
 
         // Get the current alpha channel of the color

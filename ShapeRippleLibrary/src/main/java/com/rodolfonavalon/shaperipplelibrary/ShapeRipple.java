@@ -36,7 +36,7 @@ import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
 import com.rodolfonavalon.shaperipplelibrary.data.ShapeRippleEntry;
-import com.rodolfonavalon.shaperipplelibrary.model.BaseShapeRipple;
+import com.rodolfonavalon.shaperipplelibrary.model.BaseShape;
 import com.rodolfonavalon.shaperipplelibrary.model.Circle;
 import com.rodolfonavalon.shaperipplelibrary.util.ShapePulseUtil;
 
@@ -211,9 +211,9 @@ public class ShapeRipple extends View {
     private Random random;
 
     /**
-     * The renderer of shape ripples which is drawn in the {@link BaseShapeRipple#draw(Canvas, int, int, float, int, int, Paint)}
+     * The renderer of shape ripples which is drawn in the {@link BaseShape#onDraw(Canvas, int, int, float, int, int, Paint)}
      */
-    private BaseShapeRipple rippleShape;
+    private BaseShape rippleShape;
 
     /**
      * The default paint for the ripple
@@ -305,7 +305,7 @@ public class ShapeRipple extends View {
 
             if (shapeRippleEntry.isRender()) {
                 // Each ripple entry is a rendered as a shape
-                shapeRippleEntry.getBaseShapeRipple().draw(canvas, shapeRippleEntry.getX(),
+                shapeRippleEntry.getBaseShape().onDraw(canvas, shapeRippleEntry.getX(),
                         shapeRippleEntry.getY(),
                         shapeRippleEntry.getRadiusSize(),
                         shapeRippleEntry.getChangingColorValue(),
@@ -357,7 +357,7 @@ public class ShapeRipple extends View {
      *
      * @param shapeRipple the renderer of shape ripples
      */
-    private void initializeEntries(BaseShapeRipple shapeRipple) {
+    private void initializeEntries(BaseShape shapeRipple) {
         // Sets the stroke width of the ripple
         shapePaint.setStrokeWidth(rippleStrokeWidth);
 
@@ -394,7 +394,7 @@ public class ShapeRipple extends View {
      * Refreshes the list of ticket entries after certain options are changed such as the {@link #rippleColor},
      * {@link #rippleShape}, {@link #enableRandomPosition}, etc.
      * <p>
-     * This will only execute after the {@link #initializeEntries(BaseShapeRipple)}, this is safe to call before it.
+     * This will only execute after the {@link #initializeEntries(BaseShape)}, this is safe to call before it.
      */
     private void reconfigureEntries() {
 
@@ -415,7 +415,7 @@ public class ShapeRipple extends View {
                 shapeRippleEntry.setOriginalColorValue(rippleColor);
             }
 
-            shapeRippleEntry.setBaseShapeRipple(rippleShape);
+            shapeRippleEntry.setBaseShape(rippleShape);
         }
     }
 
@@ -558,7 +558,7 @@ public class ShapeRipple extends View {
 
     /**
      * Starts the ripple by stopping the current {@link #rippleValueAnimator} using the {@link #stop()}
-     * then initializing ticket entries using the {@link #initializeEntries(BaseShapeRipple)}
+     * then initializing ticket entries using the {@link #initializeEntries(BaseShape)}
      * and lastly starting the {@link #rippleValueAnimator} using {@link #start(int)}
      */
     public void startRipple() {
@@ -679,7 +679,7 @@ public class ShapeRipple extends View {
     /**
      * @return The shape renderer for the shape ripples
      */
-    public BaseShapeRipple getRippleShape() {
+    public BaseShape getRippleShape() {
         return rippleShape;
     }
 
@@ -885,7 +885,7 @@ public class ShapeRipple extends View {
      *
      * @param rippleShape The renderer of shapes ripple
      */
-    public void setRippleShape(BaseShapeRipple rippleShape) {
+    public void setRippleShape(BaseShape rippleShape) {
         this.rippleShape = rippleShape;
 
         // Make sure we call onSetup right away

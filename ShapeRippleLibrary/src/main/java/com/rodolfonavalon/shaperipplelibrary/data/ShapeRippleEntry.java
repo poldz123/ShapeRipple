@@ -19,14 +19,14 @@ package com.rodolfonavalon.shaperipplelibrary.data;
 import android.graphics.Color;
 
 import com.rodolfonavalon.shaperipplelibrary.ShapeRipple;
-import com.rodolfonavalon.shaperipplelibrary.model.BaseShapeRipple;
+import com.rodolfonavalon.shaperipplelibrary.model.BaseShape;
 
 public class ShapeRippleEntry {
 
     /**
      * The shape renderer of the ripple
      */
-    private BaseShapeRipple baseShapeRipple;
+    private BaseShape baseShape;
 
     /**
      * Flag for when the ripple is ready to be rendered
@@ -72,16 +72,16 @@ public class ShapeRippleEntry {
      */
     private int changingColorValue;
 
-    public ShapeRippleEntry(BaseShapeRipple baseShapeRipple) {
-        this.baseShapeRipple = baseShapeRipple;
+    public ShapeRippleEntry(BaseShape baseShape) {
+        this.baseShape = baseShape;
     }
 
-    public BaseShapeRipple getBaseShapeRipple() {
-        return baseShapeRipple;
+    public BaseShape getBaseShape() {
+        return baseShape;
     }
 
-    public void setBaseShapeRipple(BaseShapeRipple baseShapeRipple) {
-        this.baseShapeRipple = baseShapeRipple;
+    public void setBaseShape(BaseShape baseShape) {
+        this.baseShape = baseShape;
     }
 
     public float getRadiusSize() {

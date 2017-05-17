@@ -21,7 +21,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 
-public class Triangle extends BaseShapeRipple {
+public class Triangle extends BaseShape {
 
     private Path path;
 
@@ -31,7 +31,7 @@ public class Triangle extends BaseShapeRipple {
     }
 
     @Override
-    public void draw(Canvas canvas, int x, int y, float radiusSize, int color, int rippleIndex, Paint shapePaint) {
+    public void onDraw(Canvas canvas, int x, int y, float radiusSize, int color, int rippleIndex, Paint shapePaint) {
 
         //TODO: need to improve performance due to drawing to canvas
 

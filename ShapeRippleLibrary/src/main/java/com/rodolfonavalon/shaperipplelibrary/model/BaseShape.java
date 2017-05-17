@@ -22,7 +22,7 @@ import android.graphics.Paint;
 
 import com.rodolfonavalon.shaperipplelibrary.ShapeRipple;
 
-public abstract class BaseShapeRipple {
+public abstract class BaseShape {
     /**
      * The width of the layout in pixel
      */
@@ -66,9 +66,9 @@ public abstract class BaseShapeRipple {
     }
 
     /**
-     * Setup method for the {@link BaseShapeRipple} before ripple rendering happens.
+     * Setup method for the {@link BaseShape} before ripple rendering happens.
      *
-     * NOTE: This is only called once every time the {@link BaseShapeRipple} is attached to the
+     * NOTE: This is only called once every time the {@link BaseShape} is attached to the
      * {@link ShapeRipple}
      *
      * @param context The {@link ShapeRipple} context
@@ -87,5 +87,5 @@ public abstract class BaseShapeRipple {
      * @param rippleIndex The index of the ripple, 0 index is the middle and n-1 is the last outer ripple
      * @param shapePaint The paint of the ripple.
      */
-    public abstract void draw(Canvas canvas, int x, int y, float radiusSize, int color, int rippleIndex, Paint shapePaint);
+    public abstract void onDraw(Canvas canvas, int x, int y, float radiusSize, int color, int rippleIndex, Paint shapePaint);
 }

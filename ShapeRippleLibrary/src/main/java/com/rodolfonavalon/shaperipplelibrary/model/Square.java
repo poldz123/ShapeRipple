@@ -21,7 +21,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-public class Square extends BaseShapeRipple {
+public class Square extends BaseShape {
 
     private Rect rect;
 
@@ -31,7 +31,7 @@ public class Square extends BaseShapeRipple {
     }
 
     @Override
-    public void draw(Canvas canvas, int x, int y, float radiusSize, int color, int rippleIndex, Paint shapePaint) {
+    public void onDraw(Canvas canvas, int x, int y, float radiusSize, int color, int rippleIndex, Paint shapePaint) {
         rect.left = (int)(x - radiusSize);
         rect.right = (int)(x + radiusSize);
         rect.top = (int)(y - radiusSize);
