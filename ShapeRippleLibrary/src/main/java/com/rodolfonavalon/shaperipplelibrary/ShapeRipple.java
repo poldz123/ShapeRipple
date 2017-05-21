@@ -45,14 +45,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import static com.rodolfonavalon.shaperipplelibrary.DebugLogger.logD;
+import static com.rodolfonavalon.shaperipplelibrary.DebugLogger.logE;
+
 public class ShapeRipple extends View {
 
-    private static final String TAG = ShapeRipple.class.getSimpleName();
+    static final String TAG = ShapeRipple.class.getSimpleName();
 
     /**
      * Debug logging flag for the library
      */
-    private static boolean DEBUG = false;
+    static boolean DEBUG = false;
 
     /**
      * Default color of the ripple
@@ -122,6 +125,11 @@ public class ShapeRipple extends View {
      */
     private float rippleInterval;
 
+    // TODO: create debug util
+    // TODO: do the max and minimum radius
+    private float rippleMinimumRadius;
+    private float rippleMaximumRadius;
+
     /**
      * Ripple interval is the original calculated timing interval for each ripple
      * by default the calculation is exactly for when each ripple finishes
@@ -150,9 +158,9 @@ public class ShapeRipple extends View {
     private int maxRippleRadius;
 
     /**
-     * The last fraction value of the animation after invalidation of this view
+     * The last multiplier value of the animation after invalidation of this view
      */
-    private float lastShapeFractionValue = 0f;
+    private float lastMultiplierValue = 0f;
 
     /**
      * Enables the color transition for each ripple, it is true by default
@@ -350,7 +358,7 @@ public class ShapeRipple extends View {
 
     /**
      * This method will initialize the list of {@link ShapeRippleEntry} with
-     * initial position, color, index, and fraction value.
+     * initial position, color, index, and multiplier value.)
      * <p>
      * The list will contain an extra ripple which is define in {@link #EXTRA_RIPPLES} that minimize the
      * extra space within the middle of the ripples.
@@ -372,7 +380,7 @@ public class ShapeRipple extends View {
             ShapeRippleEntry shapeRippleEntry = new ShapeRippleEntry(shapeRipple);
             shapeRippleEntry.setX(enableRandomPosition ? random.nextInt(viewWidth) : viewWidth / 2);
             shapeRippleEntry.setY(enableRandomPosition ? random.nextInt(viewHeight) : viewHeight / 2);
-            shapeRippleEntry.setFractionValue(-(rippleInterval * (float) i));
+            shapeRippleEntry.setMultiplierValue(-(rippleInterval * (float) i));
             shapeRippleEntry.setRippleIndex(i);
 
             if (enableRandomColor) {
@@ -424,7 +432,7 @@ public class ShapeRipple extends View {
      *
      * @param millis the duration in milliseconds
      */
-    private void start(int millis) {
+    void start(int millis) {
 
         // Do a ripple value renderer
         rippleValueAnimator = ValueAnimator.ofFloat(0f, 1f);
@@ -451,9 +459,9 @@ public class ShapeRipple extends View {
      * <p>
      * Each ripple will be configured to be either rendered or not rendered to the view to prevent extra rendering process.
      *
-     * @param fractionValue the current fraction value of the {@link #rippleValueAnimator}
+     * @param multiplierValue the current multiplier value of the {@link #rippleValueAnimator}
      */
-    private void render(Float fractionValue) {
+    private void render(Float multiplierValue) {
 
         // Do not render when entries are empty
         if (shapeRippleEntries.size() == 0) {
@@ -461,15 +469,13 @@ public class ShapeRipple extends View {
             return;
         }
 
-        float shapeFractionValue = fractionValue;
-
         ShapeRippleEntry firstEntry = shapeRippleEntries.peekFirst();
 
-        // Calculate the fraction value of the first entry
-        float firstEntryFractionValue = firstEntry.getFractionValue() + Math.max(shapeFractionValue - lastShapeFractionValue, 0);
+        // Calculate the multiplier value of the first entry
+        float firstEntryMultiplierValue = firstEntry.getMultiplierValue() + Math.max(multiplierValue - lastMultiplierValue, 0);
 
         // Check if the first entry is done the ripple (happens when the ripple reaches to end)
-        if (firstEntryFractionValue >= 1.0f) {
+        if (firstEntryMultiplierValue >= 1.0f) {
 
             // Remove and relocate the first entry to the last entry
             ShapeRippleEntry removedEntry = shapeRippleEntries.pop();
@@ -480,14 +486,14 @@ public class ShapeRipple extends View {
             // Get the new first entry of the list
             firstEntry = shapeRippleEntries.peekFirst();
 
-            // Calculate the new fraction value of the first entry of the list
-            firstEntryFractionValue = firstEntry.getFractionValue() + Math.max(shapeFractionValue - lastShapeFractionValue, 0);
+            // Calculate the new multiplier value of the first entry of the list
+            firstEntryMultiplierValue = firstEntry.getMultiplierValue() + Math.max(multiplierValue - lastMultiplierValue, 0);
 
             firstEntry.setX(enableRandomPosition ? random.nextInt(viewWidth) : viewWidth / 2);
             firstEntry.setY(enableRandomPosition ? random.nextInt(viewHeight) : viewHeight / 2);
 
             if (enableSingleRipple) {
-                firstEntryFractionValue = 0;
+                firstEntryMultiplierValue = 0;
             }
         }
 
@@ -497,12 +503,12 @@ public class ShapeRipple extends View {
             // set the updated index
             shapeRippleEntry.setRippleIndex(index);
 
-              // calculate the shape fraction by index
-            float currentShapeFractionValue = firstEntryFractionValue - rippleInterval * index;
+              // calculate the shape multiplier by index
+            float currentEntryMultiplier = firstEntryMultiplierValue - rippleInterval * index;
 
             // Check if we render the current ripple in the list
-            // We render when the fraction value is >= 0
-            if (currentShapeFractionValue >= 0) {
+            // We render when the multiplier value is >= 0
+            if (currentEntryMultiplier >= 0) {
                 shapeRippleEntry.setRender(true);
             } else {
                 // We continue to the next item
@@ -512,26 +518,26 @@ public class ShapeRipple extends View {
                 continue;
             }
 
-            // We already calculated the fraction value of the first entry of the list
+            // We already calculated the multiplier value of the first entry of the list
             if (index == 0) {
-                shapeRippleEntry.setFractionValue(firstEntryFractionValue);
+                shapeRippleEntry.setMultiplierValue(firstEntryMultiplierValue);
             } else {
-                shapeRippleEntry.setFractionValue(currentShapeFractionValue);
+                shapeRippleEntry.setMultiplierValue(currentEntryMultiplier);
             }
 
             // calculate the color if we enabled the color transition
             shapeRippleEntry.setChangingColorValue(enableColorTransition
-                    ? ShapePulseUtil.evaluateTransitionColor(currentShapeFractionValue, shapeRippleEntry.getOriginalColorValue(), rippleToColor)
+                    ? ShapePulseUtil.evaluateTransitionColor(currentEntryMultiplier, shapeRippleEntry.getOriginalColorValue(), rippleToColor)
                     : rippleColor);
 
             // calculate the current ripple size
-            shapeRippleEntry.setRadiusSize(maxRippleRadius * currentShapeFractionValue);
+            shapeRippleEntry.setRadiusSize(maxRippleRadius * currentEntryMultiplier);
 
             index += 1;
         }
 
-        // save the last fraction value
-        lastShapeFractionValue = shapeFractionValue;
+        // save the last multiplier value
+        lastMultiplierValue = multiplierValue;
 
         // we draw the shapes
         invalidate();
@@ -540,7 +546,7 @@ public class ShapeRipple extends View {
     /**
      * Stop the {@link #rippleValueAnimator} and clears the {@link #shapeRippleEntries}
      */
-    private void stop() {
+    void stop() {
 
         if (rippleValueAnimator != null) {
             rippleValueAnimator.cancel();
@@ -923,116 +929,4 @@ public class ShapeRipple extends View {
     public static void enableDebugging() {
         ShapeRipple.DEBUG = true;
     }
-
-    /**
-     * Log DEBUG with message
-     */
-    private static void logD(String message) {
-        if (!DEBUG) {
-            return;
-        }
-
-        Log.d(TAG, message);
-    }
-
-    /**
-     * Log ERROR with message
-     */
-    private static void logE(String message) {
-        if (!DEBUG) {
-            return;
-        }
-
-        Log.e(TAG, message);
-    }
-
-    /**
-     * This is a controller for ICE_CREAM_SANDWICH and up, where is handles the activity life cycle.
-     * Each call to {@link Activity#onPause()} will stop the ripple and restart it when it call the
-     * {@link Activity#onResume()}.
-     * <p>
-     * We make sure that the listener is detached when activity has been destroyed.s
-     */
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    private static class LifeCycleManager implements Application.ActivityLifecycleCallbacks {
-
-        private ShapeRipple shapeRipple;
-        private Activity activity;
-
-        private LifeCycleManager(ShapeRipple shapeRipple) {
-            this.shapeRipple = shapeRipple;
-        }
-
-        private void attachListener() {
-            if (shapeRipple == null) {
-                logE("Shape Ripple is null, activity listener is not attached!!");
-                return;
-            }
-
-            activity = getActivity(shapeRipple.getContext());
-            activity.getApplication().registerActivityLifecycleCallbacks(this);
-        }
-
-        private void detachListener() {
-            if (activity == null) {
-                return;
-            }
-
-            activity.getApplication().unregisterActivityLifecycleCallbacks(this);
-        }
-
-        @Override
-        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {}
-
-        @Override
-        public void onActivityStarted(Activity activity) {}
-
-        @Override
-        public void onActivityResumed(Activity activity) {
-            if (shapeRipple == null || this.activity != activity) {
-                return;
-            }
-
-            shapeRipple.restartRipple();
-            logD("Activity is Resumed");
-        }
-
-        @Override
-        public void onActivityPaused(Activity activity) {
-            if (shapeRipple == null || this.activity != activity) {
-                return;
-            }
-
-            shapeRipple.stop();
-            logD("Activity is Paused");
-        }
-
-        @Override
-        public void onActivityStopped(Activity activity) {}
-
-        @Override
-        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {}
-
-        @Override
-        public void onActivityDestroyed(Activity activity) {
-            if (this.activity != activity) {
-                return;
-            }
-
-            detachListener();
-            logD("Activity is Destroyed");
-        }
-
-        private Activity getActivity(Context context) {
-            while (context instanceof ContextWrapper) {
-                if (context instanceof Activity) {
-                    return (Activity) context;
-                }
-                context = ((ContextWrapper) context).getBaseContext();
-            }
-
-            throw new IllegalArgumentException("Context does not derived from any activity, Do not use the Application Context!!");
-        }
-    }
-
 }

@@ -40,9 +40,9 @@ public class ShapeRippleEntry {
     private float radiusSize;
 
     /**
-     * The current fraction value of the ripple
+     * The current multiplier value of the ripple
      */
-    private float fractionValue;
+    private float multiplierValue;
 
     /**
      * The current index of the ripple in the list
@@ -101,12 +101,12 @@ public class ShapeRippleEntry {
         setChangingColorValue(originalColorValue);
     }
 
-    public float getFractionValue() {
-        return fractionValue;
+    public float getMultiplierValue() {
+        return multiplierValue;
     }
 
-    public void setFractionValue(float fractionValue) {
-        this.fractionValue = fractionValue;
+    public void setMultiplierValue(float multiplierValue) {
+        this.multiplierValue = multiplierValue;
     }
 
     public boolean isRender() {
@@ -154,7 +154,7 @@ public class ShapeRippleEntry {
      */
     public void reset() {
         isRender = false;
-        fractionValue = -1;
+        multiplierValue = -1;
         radiusSize = 0;
         originalColorValue = Color.TRANSPARENT;
         changingColorValue = Color.TRANSPARENT;
