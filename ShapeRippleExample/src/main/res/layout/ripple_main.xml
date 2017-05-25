@@ -232,6 +232,21 @@
                 custom:dsb_min="2"
                 custom:dsb_value="7" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/customizer_container_padding"
+                android:layout_marginStart="@dimen/customizer_container_padding"
+                android:text="Ripple Max Size" />
+
+            <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+                android:id="@+id/ripple_max_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                custom:dsb_max="500"
+                custom:dsb_min="100"
+                custom:dsb_value="250" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

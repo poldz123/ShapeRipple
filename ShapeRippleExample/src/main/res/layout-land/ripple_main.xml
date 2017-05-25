@@ -22,215 +22,234 @@
         android:layout_height="match_parent"
         android:background="@android:color/black" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:weightSum="10">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/primary_deep_purple"
-                android:onClick="colorPick" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/primary_indigo"
-                android:onClick="colorPick" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/primary_blue"
-                android:onClick="colorPick" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/primary_light_blue"
-                android:onClick="colorPick" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/primary_cyan"
-                android:onClick="colorPick" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/primary_teal"
-                android:onClick="colorPick" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/primary_light_green"
-                android:onClick="colorPick" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/primary_green"
-                android:onClick="colorPick" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/primary_deep_orange"
-                android:onClick="colorPick" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/primary_red"
-                android:onClick="colorPick" />
-        </LinearLayout>
-
-        <View
-            android:id="@+id/divider3"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/black" />
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/primary_deep_purple"
+                    android:onClick="colorPick" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/primary_indigo"
+                    android:onClick="colorPick" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/primary_blue"
+                    android:onClick="colorPick" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/primary_light_blue"
+                    android:onClick="colorPick" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/primary_cyan"
+                    android:onClick="colorPick" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/primary_teal"
+                    android:onClick="colorPick" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/primary_light_green"
+                    android:onClick="colorPick" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/primary_green"
+                    android:onClick="colorPick" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/primary_deep_orange"
+                    android:onClick="colorPick" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/primary_red"
+                    android:onClick="colorPick" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingEnd="@dimen/customizer_container_padding"
-                android:paddingLeft="@dimen/customizer_container_padding"
-                android:paddingRight="@dimen/customizer_container_padding"
-                android:paddingStart="@dimen/customizer_container_padding">
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-                <android.support.v7.widget.AppCompatCheckBox
-                    android:id="@+id/enable_single_ripple"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:button="@null"
-                    android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-                    android:text="Single ripple" />
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingEnd="@dimen/customizer_container_padding"
+                    android:paddingLeft="@dimen/customizer_container_padding"
+                    android:paddingRight="@dimen/customizer_container_padding"
+                    android:paddingStart="@dimen/customizer_container_padding">
 
-                <android.support.v7.widget.AppCompatCheckBox
-                    android:id="@+id/enable_stroke_ripple"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:button="@null"
-                    android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-                    android:text="Stroke Ripple" />
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/enable_single_ripple"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:button="@null"
+                        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                        android:text="Single ripple" />
 
-                <android.support.v7.widget.AppCompatCheckBox
-                    android:id="@+id/enable_color_transition"
-                    android:layout_width="match_parent"
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/enable_stroke_ripple"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:button="@null"
+                        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                        android:text="Stroke Ripple" />
+
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/enable_color_transition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:button="@null"
+                        android:checked="true"
+                        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                        android:text="Color transition" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:button="@null"
-                    android:checked="true"
-                    android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-                    android:text="Color transition" />
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingEnd="@dimen/customizer_container_padding"
+                    android:paddingLeft="@dimen/customizer_container_padding"
+                    android:paddingRight="@dimen/customizer_container_padding"
+                    android:paddingStart="@dimen/customizer_container_padding">
+
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/enable_random_color"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:button="@null"
+                        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                        android:text="Random color" />
+
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/enable_random_position"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:button="@null"
+                        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+                        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                        android:text="Random position" />
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingEnd="@dimen/customizer_container_padding"
-                android:paddingLeft="@dimen/customizer_container_padding"
-                android:paddingRight="@dimen/customizer_container_padding"
-                android:paddingStart="@dimen/customizer_container_padding">
+                android:layout_marginEnd="@dimen/customizer_container_padding"
+                android:layout_marginStart="@dimen/customizer_container_padding"
+                android:layout_marginTop="@dimen/customizer_container_padding"
+                android:text="Ripple Duration" />
 
-                <android.support.v7.widget.AppCompatCheckBox
-                    android:id="@+id/enable_random_color"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:button="@null"
-                    android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-                    android:text="Random color" />
+            <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+                android:id="@+id/ripple_duration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                custom:dsb_max="10000"
+                custom:dsb_min="500"
+                custom:dsb_value="1500" />
 
-                <android.support.v7.widget.AppCompatCheckBox
-                    android:id="@+id/enable_random_position"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:button="@null"
-                    android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-                    android:text="Random position" />
-            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/customizer_container_padding"
+                android:layout_marginStart="@dimen/customizer_container_padding"
+                android:text="Ripple Count" />
+
+            <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+                android:id="@+id/ripple_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                custom:dsb_max="15"
+                custom:dsb_min="2"
+                custom:dsb_value="7" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/customizer_container_padding"
+                android:layout_marginStart="@dimen/customizer_container_padding"
+                android:text="Ripple Max Size" />
+
+            <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+                android:id="@+id/ripple_max_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                custom:dsb_max="500"
+                custom:dsb_min="100"
+                custom:dsb_value="250" />
 
         </LinearLayout>
-
-        <View
-            android:id="@+id/divider2"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/black" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/customizer_container_padding"
-            android:layout_marginStart="@dimen/customizer_container_padding"
-            android:layout_marginTop="@dimen/customizer_container_padding"
-            android:text="Ripple Duration" />
-
-        <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
-            android:id="@+id/ripple_duration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            custom:dsb_max="10000"
-            custom:dsb_min="500"
-            custom:dsb_value="1500" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/customizer_container_padding"
-            android:layout_marginStart="@dimen/customizer_container_padding"
-            android:text="Ripple Count" />
-
-        <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
-            android:id="@+id/ripple_count"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            custom:dsb_max="15"
-            custom:dsb_min="2"
-            custom:dsb_value="7"  />
-
-    </LinearLayout>
-
+    </ScrollView>
 
 </LinearLayout>

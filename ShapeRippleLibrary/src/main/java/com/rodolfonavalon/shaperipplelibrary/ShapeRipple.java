@@ -595,11 +595,7 @@ public class ShapeRipple extends View {
      * @return The max ripple radius
      */
     public float getRippleMaximumRadius() {
-        if (rippleMaximumRadius == NO_VALUE) {
-            throw new IllegalArgumentException("Max ripple radius was not define!");
-        }
-
-        return rippleMaximumRadius;
+        return maxRippleRadius;
     }
 
     /**
@@ -712,6 +708,7 @@ public class ShapeRipple extends View {
         }
 
         this.rippleMaximumRadius = rippleMaximumRadius;
+        requestLayout();
     }
 
     /**

@@ -59,14 +59,22 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         ripple.setRippleShape(new Circle());
         final DiscreteSeekBar rippleDuration = (DiscreteSeekBar) findViewById(R.id.ripple_duration);
         final DiscreteSeekBar rippleCount = (DiscreteSeekBar) findViewById(R.id.ripple_count);
+        final DiscreteSeekBar rippleMaxSize = (DiscreteSeekBar) findViewById(R.id.ripple_max_size);
+
         rippleDuration.setOnProgressChangeListener(this);
         rippleCount.setOnProgressChangeListener(this);
+        rippleMaxSize.setOnProgressChangeListener(this);
+
 
         ripple.post(new Runnable() {
             @Override
             public void run() {
                 rippleCount.setMax(ripple.getRippleCount() * 2);
                 rippleCount.setProgress(ripple.getRippleCount());
+
+                rippleMaxSize.setMax((int)ripple.getRippleMaximumRadius() * 3);
+                rippleMaxSize.setProgress((int)ripple.getRippleMaximumRadius());
+                rippleMaxSize.setMin((int)(ripple.getRippleMaximumRadius() * 0.25));
             }
         });
     }
@@ -180,6 +188,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                 break;
             case R.id.ripple_count:
                 ripple.setRippleCount(seekBar.getProgress());
+                break;
+            case R.id.ripple_max_size:
+                ripple.setRippleMaximumRadius(seekBar.getProgress());
                 break;
             default:
 
