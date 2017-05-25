@@ -11,7 +11,7 @@
         <attr name="ripple_from_color" format="color" />
         <attr name="ripple_to_color" format="color" />
         <attr name="ripple_stroke_width" format="dimension" />
-        <attr name="ripple_minimum_radius" format="dimension" />
         <attr name="ripple_maximum_radius" format="dimension" />
+        <attr name="ripple_count" format="integer" />
     </declare-styleable>
 </resources>

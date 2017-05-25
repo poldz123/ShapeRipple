@@ -17,20 +17,14 @@
 package com.rodolfonavalon.shaperipplelibrary;
 
 import android.animation.ValueAnimator;
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
-import android.os.Bundle;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
@@ -52,7 +46,7 @@ public class ShapeRipple extends View {
 
     static final String TAG = ShapeRipple.class.getSimpleName();
 
-    private static final int NO_VALUE = -1;
+    private static final int NO_VALUE = 0;
 
     /**
      * Debug logging flag for the library
@@ -78,12 +72,6 @@ public class ShapeRipple extends View {
      * The default duration of the ripples
      */
     private static final int DEFAULT_RIPPLE_DURATION = 1500;
-
-    /**
-     * Extra ripples for minimizing the empty space with in the
-     * middle of the ripple
-     */
-    private static final int EXTRA_RIPPLES = 3;
 
     /**
      * The default ripple interval factor see {@link #rippleIntervalFactor} for
@@ -121,15 +109,8 @@ public class ShapeRipple extends View {
     /**
      * Ripple interval handles the actual timing of each spacing
      * of ripples in the list, calculated in {@link #onMeasure(int, int)}
-     * <p>
-     * Warning: this always change overtime upon incrementing the {@link #DEFAULT_RIPPLE_INTERVAL_FACTOR}
-     * see {@link #rippleIntervalCalculated} for the original interval
      */
     private float rippleInterval;
-
-    // TODO: create debug util
-    // TODO: do the max and minimum radius
-    private float rippleMinimumRadius;
 
     /**
      * Ripple maximum radius that will be used instead of the pre-calculated value, default value is
@@ -138,16 +119,16 @@ public class ShapeRipple extends View {
     private float rippleMaximumRadius;
 
     /**
-     * Ripple interval is the original calculated timing interval for each ripple
-     * by default the calculation is exactly for when each ripple finishes
-     */
-    private float rippleIntervalCalculated;
-
-    /**
      * Ripple interval factor is the spacing for each ripple
      * the more the factor the more the spacing
      */
     private float rippleIntervalFactor;
+
+    /**
+     * Ripple count that will be rendered in the layout, default value is calculated based on the
+     * layout_width / ripple_width
+     */
+    private int rippleCount;
 
     /**
      * The width of the view in the layout which is calculated in {@link #onMeasure(int, int)}
@@ -296,6 +277,7 @@ public class ShapeRipple extends View {
                 enableSingleRipple = ta.getBoolean(R.styleable.ConnectingRipple_enable_single_ripple, false);
                 enableRandomPosition = ta.getBoolean(R.styleable.ConnectingRipple_enable_random_position, false);
                 rippleMaximumRadius = ta.getDimensionPixelSize(R.styleable.ConnectingRipple_ripple_maximum_radius, NO_VALUE);
+                rippleCount = ta.getInteger(R.styleable.ConnectingRipple_ripple_count, NO_VALUE);
                 setEnableStrokeStyle(ta.getBoolean(R.styleable.ConnectingRipple_enable_stroke_style, false));
                 setEnableRandomColor(ta.getBoolean(R.styleable.ConnectingRipple_enable_random_color, false));
                 setRippleStrokeWidth(ta.getDimensionPixelSize(R.styleable.ConnectingRipple_ripple_stroke_width, getResources().getDimensionPixelSize(R.dimen.default_stroke_width)));
@@ -340,12 +322,6 @@ public class ShapeRipple extends View {
         viewWidth = MeasureSpec.getSize(widthMeasureSpec);
         viewHeight = MeasureSpec.getSize(heightMeasureSpec);
 
-        // the ripple radius based on the x or y
-        maxRippleRadius = rippleMaximumRadius != NO_VALUE ? (int)rippleMaximumRadius :
-                (Math.min(viewWidth, viewHeight) / 2 - (rippleStrokeWidth / 2));
-
-        rippleIntervalCalculated = ((float) rippleStrokeWidth / (float) maxRippleRadius);
-        rippleInterval = rippleIntervalCalculated * rippleIntervalFactor;
         initializeEntries(rippleShape);
 
         rippleShape.setWidth(viewWidth);
@@ -369,9 +345,6 @@ public class ShapeRipple extends View {
     /**
      * This method will initialize the list of {@link ShapeRippleEntry} with
      * initial position, color, index, and multiplier value.)
-     * <p>
-     * The list will contain an extra ripple which is define in {@link #EXTRA_RIPPLES} that minimize the
-     * extra space within the middle of the ripples.
      *
      * @param shapeRipple the renderer of shape ripples
      */
@@ -385,8 +358,18 @@ public class ShapeRipple extends View {
 
         // we remove all the shape ripples entries
         shapeRippleEntries.clear();
-        int maxNumberOfRipples = maxRippleRadius / rippleStrokeWidth;
-        for (int i = 0; i < maxNumberOfRipples + EXTRA_RIPPLES; i++) {
+
+        // the ripple radius based on the x or y
+        maxRippleRadius = rippleMaximumRadius != NO_VALUE ? (int)rippleMaximumRadius :
+                (Math.min(viewWidth, viewHeight) / 2 - (rippleStrokeWidth / 2));
+
+        // Calculate the max number of ripples
+        rippleCount = rippleCount > NO_VALUE ? rippleCount : maxRippleRadius / rippleStrokeWidth;
+
+        // Calculate the interval of ripples
+        rippleInterval = DEFAULT_RIPPLE_INTERVAL_FACTOR / rippleCount;
+
+        for (int i = 0; i < rippleCount; i++) {
             ShapeRippleEntry shapeRippleEntry = new ShapeRippleEntry(shapeRipple);
             shapeRippleEntry.setX(enableRandomPosition ? random.nextInt(viewWidth) : viewWidth / 2);
             shapeRippleEntry.setY(enableRandomPosition ? random.nextInt(viewHeight) : viewHeight / 2);
@@ -609,13 +592,6 @@ public class ShapeRipple extends View {
     }
 
     /**
-     * @return The interval for each ripple
-     */
-    public float getRippleInterval() {
-        return rippleInterval;
-    }
-
-    /**
      * @return The max ripple radius
      */
     public float getRippleMaximumRadius() {
@@ -718,23 +694,6 @@ public class ShapeRipple extends View {
     }
 
     /**
-     * Change the ripple interval for each ripple.
-     * <p>
-     * Value must be between 0f - 2f.
-     *
-     * @param rippleInterval The floating ripple interval for each ripple
-     */
-    public void setRippleInterval(float rippleInterval) {
-
-        if (rippleInterval > 2f || rippleInterval <= 0) {
-            throw new IllegalArgumentException("Ripple Interval must be <= 2f and > 0");
-        }
-
-        this.rippleIntervalFactor = rippleInterval;
-        this.rippleInterval = (this.rippleIntervalCalculated * rippleInterval);
-    }
-
-    /**
      * Change the maximum size of the ripple, default to the size of the layout.
      * <p>
      * Value must be greater than 1
@@ -742,7 +701,7 @@ public class ShapeRipple extends View {
      * @param rippleMaximumRadius The floating ripple interval for each ripple
      */
     public void setRippleMaximumRadius(float rippleMaximumRadius) {
-        if (rippleMaximumRadius <= 0) {
+        if (rippleMaximumRadius <= NO_VALUE) {
             throw new IllegalArgumentException("Ripple max radius must be greater than 0");
         }
 
@@ -905,6 +864,14 @@ public class ShapeRipple extends View {
         this.enableRandomColor = enableRandomColor;
 
         reconfigureEntries();
+    }
+
+    public void setRippleCount(int rippleCount) {
+        if (rippleCount <= NO_VALUE) {
+            throw new NullPointerException("Invalid ripple count");
+        }
+
+        this.rippleCount = rippleCount;
     }
 
     /**

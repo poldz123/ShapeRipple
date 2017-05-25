@@ -79,7 +79,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             }
         });
 
-        rippleIntervalDuration.setProgress(150);
+        ripple.setEnableStrokeStyle(true);
+        ShapeRipple.enableDebugging();
+        rippleIntervalDuration.setProgress(100);
     }
 
     private void setupToolbar() {
@@ -190,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                 ripple.setRippleDuration(seekBar.getProgress());
                 break;
             case R.id.ripple_interval:
-                ripple.setRippleInterval((float) seekBar.getProgress() / 100F);
+//                ripple.setRippleInterval((float) seekBar.getProgress() / 100F);
                 break;
             default:
 
