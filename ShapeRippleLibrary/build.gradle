@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/poldz123/ShapeRipple'
     gitUrl = 'https://github.com/poldz123/ShapeRipple.git'
 
-    libraryVersion = '0.4.0'
+    libraryVersion = '1.0.0'
 
     developerId = 'poldz123'
     developerName = 'Rodolfo Navalon'
@@ -31,7 +31,7 @@ android {
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 25
-        versionCode 5
+        versionCode 6
         versionName "1.0.0"
     }
     buildTypes {
