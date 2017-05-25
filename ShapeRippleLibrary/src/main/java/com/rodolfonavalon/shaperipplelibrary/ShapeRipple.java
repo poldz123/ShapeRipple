@@ -659,6 +659,12 @@ public class ShapeRipple extends View {
     }
 
     /**
+     * @return The number of ripple being rendered
+     */
+    public int getRippleCount() {
+        return rippleCount;
+    }
+    /**
      * @return The interpolator of the value animator
      */
     public Interpolator getRippleInterpolator() {
@@ -866,12 +872,19 @@ public class ShapeRipple extends View {
         reconfigureEntries();
     }
 
+    /**
+     * Change the number of ripples, default value is calculated based on the
+     * layout_width / ripple_width.
+     *
+     * @param rippleCount The number of ripples
+     */
     public void setRippleCount(int rippleCount) {
         if (rippleCount <= NO_VALUE) {
             throw new NullPointerException("Invalid ripple count");
         }
 
         this.rippleCount = rippleCount;
+        requestLayout();
     }
 
     /**

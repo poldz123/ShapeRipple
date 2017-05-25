@@ -58,30 +58,17 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         ripple = (ShapeRipple) findViewById(R.id.ripple);
         ripple.setRippleShape(new Circle());
         final DiscreteSeekBar rippleDuration = (DiscreteSeekBar) findViewById(R.id.ripple_duration);
-        final DiscreteSeekBar rippleIntervalDuration = (DiscreteSeekBar) findViewById(R.id.ripple_interval);
+        final DiscreteSeekBar rippleCount = (DiscreteSeekBar) findViewById(R.id.ripple_count);
         rippleDuration.setOnProgressChangeListener(this);
-        rippleIntervalDuration.setOnProgressChangeListener(this);
+        rippleCount.setOnProgressChangeListener(this);
 
-        rippleIntervalDuration.setNumericTransformer(new DiscreteSeekBar.NumericTransformer() {
+        ripple.post(new Runnable() {
             @Override
-            public int transform(int value) {
-                return 0;
-            }
-
-            @Override
-            public String transformToString(int value) {
-                return String.format("%.2f", (float) value / 100F);
-            }
-
-            @Override
-            public boolean useStringTransform() {
-                return true;
+            public void run() {
+                rippleCount.setMax(ripple.getRippleCount() * 2);
+                rippleCount.setProgress(ripple.getRippleCount());
             }
         });
-
-        ripple.setEnableStrokeStyle(true);
-        ShapeRipple.enableDebugging();
-        rippleIntervalDuration.setProgress(100);
     }
 
     private void setupToolbar() {
@@ -191,8 +178,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             case R.id.ripple_duration:
                 ripple.setRippleDuration(seekBar.getProgress());
                 break;
-            case R.id.ripple_interval:
-//                ripple.setRippleInterval((float) seekBar.getProgress() / 100F);
+            case R.id.ripple_count:
+                ripple.setRippleCount(seekBar.getProgress());
                 break;
             default:
 
